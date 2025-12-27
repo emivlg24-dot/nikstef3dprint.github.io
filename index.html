@@ -13,7 +13,14 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; scroll-behavior: smooth; }
         body { background-color: #f0f2f5; color: #222; line-height: 1.6; }
-        :root { --primary: #ff4b5c; --secondary: #2d3436; --accent: #00b894; --light: #ffffff; --gray: #f8f9fa; }
+        :root { 
+            --primary: #ff4b5c; 
+            --secondary: #2d3436; 
+            --accent: #00b894; 
+            --whatsapp: #25D366;
+            --light: #ffffff; 
+            --gray: #f8f9fa; 
+        }
 
         header { background: var(--secondary); padding: 1rem 5%; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
         .header-container { max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
@@ -37,25 +44,34 @@
         .service-card { background: var(--light); padding: 2.5rem; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: center; }
         .service-icon { font-size: 3rem; color: var(--primary); margin-bottom: 1.5rem; }
 
-        .how-we-work { background: var(--gray); padding: 5rem 5%; text-align: center; }
-        .work-highlights { max-width: 800px; margin: 0 auto; text-align: left; display: inline-block; }
-        .work-highlights li { font-size: 1.1rem; margin: 1rem 0; list-style: none; position: relative; padding-left: 2.5rem; }
-        .work-highlights li::before { content: "💯🔥"; position: absolute; left: 0; }
-
         .contact { padding: 5rem 5%; max-width: 1100px; margin: 0 auto 5rem auto; background: var(--light); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
         #canvas-container { width: 100%; height: 250px; background: #eee; border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 1rem; border: 1px solid #ddd; }
         
         .contact-form input, .contact-form textarea, .contact-form select { width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        .address-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0.5rem; }
+        
         .file-input-label { display: block; background: #fdfdfd; border: 2px dashed #ddd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; text-align: center; cursor: pointer; transition: 0.3s; }
         .file-input-label:hover { border-color: var(--primary); background: #fff9f9; }
         
-        .contact-form button { background: var(--primary); color: var(--light); width: 100%; padding: 1rem; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .contact-form button { background: var(--primary); color: var(--light); width: 100%; padding: 1rem; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .contact-form button:hover { opacity: 0.9; }
         .contact-form button:disabled { background: #ccc; cursor: not-allowed; }
-        
-        footer { background: var(--secondary); padding: 3rem 5%; text-align: center; color: white; }
 
-        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } }
+        #payment-box { display: none; margin-top: 1.5rem; padding: 1.5rem; background: #f0fff4; border: 2px solid var(--accent); border-radius: 10px; }
+        .whatsapp-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--whatsapp); color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: 700; margin-top: 15px; width: 100%; transition: 0.3s; }
+        .whatsapp-btn:hover { background: #128C7E; transform: scale(1.02); }
+        .whatsapp-btn i { margin-right: 10px; font-size: 1.3rem; }
+
+        footer { background: var(--secondary); padding: 3rem 5%; text-align: center; color: white; }
+        .vat-breakdown { font-size: 0.85rem; color: #666; margin-top: 5px; text-align: center; }
+
+        @media (max-width: 768px) { 
+            .contact-grid { grid-template-columns: 1fr; } 
+            .address-row { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -66,7 +82,6 @@
             <nav class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#services">Services</a>
-                <a href="#how-we-work">How We Work</a>
                 <a href="#contact">Contact</a>
             </nav>
             <a href="#contact" class="cta-btn">Get A Quote</a>
@@ -75,40 +90,29 @@
 
     <section class="hero" id="home">
         <h1>Custom <span>3D Printing</span> & Personalised Products</h1>
-        <p>Professional solutions with next-gen tools – everything tailored to your needs!</p>
+        <p>Professional solutions in Bradford – Professional gear, quality results!</p>
         <div style="margin-top: 2rem;">
-            <a href="#services" class="btn btn-primary">Explore Services</a>
-            <a href="#contact" class="btn btn-secondary">Contact Us</a>
+            <a href="#services" class="btn btn-primary">Our Services</a>
+            <a href="#contact" class="btn btn-secondary">Order Now</a>
         </div>
     </section>
 
     <section class="services" id="services">
         <div class="section-title">
             <h2>Our Services</h2>
-            <p>We bring your ideas to life with precision and style</p>
+            <p>From prototypes to custom apparel, we've got you covered.</p>
         </div>
         <div class="services-grid">
-            <div class="service-card"><div class="service-icon">✉️</div><h3>Personalised Envelopes</h3><p>Custom branding for business or events.</p></div>
-            <div class="service-card"><div class="service-icon">🖨️</div><h3>3D Print Service</h3><p>High-quality prototypes and custom parts.</p></div>
-            <div class="service-card"><div class="service-icon">📩</div><h3>Invitations</h3><p>Tailored designs for special occasions.</p></div>
-            <div class="service-card"><div class="service-icon">👕</div><h3>Branded Apparel</h3><p>T-shirts and hoodies for your team.</p></div>
+            <div class="service-card"><div class="service-icon">🖨️</div><h3>3D Print Service</h3><p>FDM printing with PLA, ABS, and TPU materials.</p></div>
+            <div class="service-card"><div class="service-icon">👕</div><h3>Branded Apparel</h3><p>Custom T-shirts and Hoodies for teams or events.</p></div>
+            <div class="service-card"><div class="service-icon">✉️</div><h3>Personalised Envelopes</h3><p>Custom branding for business or invitations.</p></div>
         </div>
-    </section>
-
-    <section class="how-we-work" id="how-we-work">
-        <h2>This Is How We Work 💯🔥</h2>
-        <ul class="work-highlights">
-            <li>We personalise envelopes 🔥🔥</li>
-            <li>3D print service with live preview 🔥🔥</li>
-            <li>Branded T-shirts / Hoodies 🔥🔥</li>
-            <li>Professional last-generation tools 🔥🔥</li>
-        </ul>
     </section>
 
     <section class="contact" id="contact">
         <div class="section-title">
-            <h2>Get In Touch & Get a Quote</h2>
-            <p>Upload your file for an instant estimate!</p>
+            <h2>Order & Quote</h2>
+            <p>Choose your service and upload your design to get started.</p>
         </div>
 
         <div class="contact-grid">
@@ -118,7 +122,7 @@
                     
                     <label style="font-weight: 600; font-size: 0.9rem;">Service Type:</label>
                     <select id="serviceType">
-                        <option value="3d">3D Printing (STL Auto-Calc)</option>
+                        <option value="3d">3D Printing (STL Preview)</option>
                         <option value="apparel">Branded Apparel</option>
                         <option value="envelopes">Envelopes/Invitations</option>
                     </select>
@@ -126,32 +130,45 @@
                     <div id="3dOptions">
                         <div id="canvas-container">
                             <div id="placeholder-msg" style="position: absolute; top:50%; left:50%; transform: translate(-50%,-50%); color: #888; text-align: center; width: 80%;">
-                                <i class="fas fa-cube fa-2x"></i><br><small>Upload STL to view 3D</small>
+                                <i class="fas fa-cube fa-2x"></i><br><small>Upload STL to see 3D Preview</small>
                             </div>
                         </div>
-                        <label style="font-weight: 600; font-size: 0.9rem;">Material:</label>
-                        <select id="material_select">
-                            <option value="1.0">PLA (Standard)</option>
-                            <option value="1.2">ABS (Strong)</option>
-                            <option value="2.0">TPU (Flexible)</option>
-                        </select>
-                        <div style="font-size: 0.8rem; margin-bottom: 10px; color: #555;">
-                            Vol: <span id="vol_val">0</span> cm³ | Size: <span id="size_val">0mm</span>
+                        <div class="address-row">
+                            <div>
+                                <label style="font-weight: 600; font-size: 0.8rem;">Material:</label>
+                                <select id="material_select">
+                                    <option value="1.0">PLA (Standard)</option>
+                                    <option value="1.2">ABS (Strong)</option>
+                                    <option value="2.0">TPU (Flexible)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-weight: 600; font-size: 0.8rem;">Colour:</label>
+                                <select id="color_select">
+                                    <option value="#ff4b5c">Red</option>
+                                    <option value="#2d3436">Black</option>
+                                    <option value="#ffffff">White</option>
+                                    <option value="#00b894">Green</option>
+                                    <option value="#0984e3">Blue</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
                     <div id="apparelOptions" style="display:none;">
-                        <label style="font-weight: 600; font-size: 0.9rem;">Print Sides:</label>
-                        <select id="apparelPrintType">
-                            <option value="10">Front Only (£10.00)</option>
-                            <option value="20">Front & Back (£20.00)</option>
-                        </select>
+                        <label id="sideLabel" style="font-weight: 600; font-size: 0.9rem;">Print Sides:</label>
+                        <select id="apparelPrintType"></select>
                         <label style="font-weight: 600; font-size: 0.9rem;">Quantity:</label>
                         <input type="number" id="itemQuantity" value="1" min="1">
                     </div>
 
-                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--secondary); text-align: center; background: #fff; padding: 1rem; border-radius: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);">
-                        Est. Total: <span style="color: var(--primary);">£<span id="displayPrice">0.00</span></span>
+                    <div style="background: #fff; padding: 1rem; border-radius: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #ddd;">
+                        <div style="font-size: 1.5rem; font-weight: 800; text-align: center;">
+                            Total: <span style="color: var(--primary);">£<span id="displayPrice">0.00</span></span>
+                        </div>
+                        <div class="vat-breakdown">
+                            (Subtotal: £<span id="subPrice">0.00</span> + 20% VAT: £<span id="vatAmount">0.00</span>)
+                        </div>
                     </div>
                 </div>
 
@@ -159,41 +176,65 @@
                 <p>📧 <a href="mailto:nikstef3dprint@gmail.com">nikstef3dprint@gmail.com</a></p>
                 <p>📱 <a href="tel:07305378435">07305378435</a></p>
                 <p>📍 Bradford, UK</p>
-                <div style="margin-top: 1rem;">
-                    <a href="https://www.facebook.com/share/1CE174YsFJ/" target="_blank" style="color: var(--secondary); font-size: 1.5rem;"><i class="fab fa-facebook-f"></i></a>
-                </div>
             </div>
 
             <form action="https://getform.io/f/bqoqmqvb" method="POST" id="quoteForm" class="contact-form" enctype="multipart/form-data">
                 <input type="hidden" name="estimated_price" id="hiddenPrice">
-                <input type="hidden" name="model_specs" id="hiddenSpecs">
+                <input type="hidden" name="order_details" id="hiddenSpecs">
 
-                <input type="text" name="customer_name" placeholder="Your Name" required>
-                <input type="email" name="customer_email" placeholder="Your Email" required>
+                <input type="text" name="customer_name" id="custName" placeholder="Your Full Name" required>
+                <input type="email" name="customer_email" placeholder="Your Email Address" required>
                 
+                <p style="font-weight: 600; margin-bottom: 5px; font-size: 0.9rem;">Delivery Details:</p>
+                <input type="text" name="street" id="custStreet" placeholder="Street Address" required>
+                <div class="address-row">
+                    <input type="text" name="city" id="custCity" placeholder="City" required>
+                    <input type="text" name="postcode" id="custPostcode" placeholder="Postcode" required>
+                </div>
+
                 <label class="file-input-label" for="stl_file">
-                    <i class="fas fa-cloud-upload-alt"></i> <strong>Upload .STL or Design File (Max 5MB)</strong>
-                    <input type="file" id="stl_file" name="uploaded_file" accept=".stl,.png,.jpg,.jpeg,.pdf" style="display:none">
+                    <i class="fas fa-cloud-upload-alt"></i> <strong>Upload STL / Design File</strong>
+                    <input type="file" id="stl_file" name="uploaded_file" style="display:none">
                     <p id="fileNameDisplay" style="font-size: 0.8rem; color: var(--accent); margin-top:5px;"></p>
                 </label>
 
-                <textarea name="customer_message" placeholder="Additional details (colors, sizes, urgency)..." required></textarea>
+                <textarea name="customer_message" placeholder="Additional details (sizing, specific colors, etc.)" required></textarea>
                 
-                <button type="submit" id="submitBtn">Send Quote Request</button>
-                <p id="formStatus" style="display:none; margin-top: 1rem; font-weight: bold; text-align: center; padding: 10px; border-radius: 5px;"></p>
+                <button type="submit" id="submitBtn">Send Request & Get Bank Details</button>
+                
+                <div id="formStatus" style="display:none; margin-top: 1rem; font-weight: bold; text-align: center; padding: 10px; border-radius: 5px;"></div>
+
+                <div id="payment-box">
+                    <h4 style="color: var(--accent);"><i class="fas fa-university"></i> Bank Transfer Details</h4>
+                    <div style="background: #fff; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 1rem; margin: 10px 0; border: 1px solid #c6f6d5;">
+                        <strong>Name:</strong> Emanuel-Stefan Szoke<br>
+                        <strong>Sort Code:</strong> 04-00-04<br>
+                        <strong>Account:</strong> 11254040
+                    </div>
+                    <p style="font-size: 0.85rem; color: #444;">Please transfer the estimated total. Once sent, confirm your order via WhatsApp.</p>
+
+                    <a href="#" id="whatsappLink" target="_blank" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                    </a>
+                </div>
             </form>
         </div>
     </section>
 
     <footer>
         <div class="logo">Nik<span>Stef</span>3DPrint</div>
-        <p style="margin-top: 1rem;">&copy; 2024 NikStef3DPrint. All rights reserved.</p>
+        <p style="margin-top: 1rem;">&copy; 2025 NikStef3DPrint. Bradford, UK. All rights reserved.</p>
     </footer>
 
     <script>
         let scene, camera, renderer, mesh, currentVolume = 0;
         const serviceType = document.getElementById('serviceType');
+        const colorSelect = document.getElementById('color_select');
+        const materialSelect = document.getElementById('material_select');
         const displayPrice = document.getElementById('displayPrice');
+        const subPrice = document.getElementById('subPrice');
+        const vatAmount = document.getElementById('vatAmount');
+        const sidesDropdown = document.getElementById('apparelPrintType');
 
         function init3D() {
             scene = new THREE.Scene();
@@ -216,42 +257,25 @@
         document.getElementById('stl_file').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
-
-            if(file.size > 5 * 1024 * 1024) {
-                alert("File too large. Max 5MB allowed.");
-                this.value = "";
-                return;
-            }
-
             document.getElementById('fileNameDisplay').innerText = "Selected: " + file.name;
-            
-            // Only try to render 3D if it's an STL
             if (file.name.toLowerCase().endsWith('.stl')) {
                 const reader = new FileReader();
                 reader.onload = function(ev) {
                     if (!scene) init3D();
                     if (mesh) scene.remove(mesh);
                     const geometry = new THREE.STLLoader().parse(ev.target.result);
-                    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: 0xff4b5c }));
+                    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: colorSelect.value }));
                     geometry.computeBoundingBox();
                     const center = new THREE.Vector3();
                     geometry.boundingBox.getCenter(center);
                     mesh.position.sub(center);
                     scene.add(mesh);
-
                     currentVolume = calculateVolume(geometry) / 1000;
-                    const size = new THREE.Vector3();
-                    geometry.boundingBox.getSize(size);
-                    
                     document.getElementById('placeholder-msg').style.display = 'none';
-                    document.getElementById('vol_val').innerText = currentVolume.toFixed(2);
-                    document.getElementById('size_val').innerText = `${size.x.toFixed(0)}x${size.y.toFixed(0)}mm`;
-                    document.getElementById('hiddenSpecs').value = `3D Print - Vol: ${currentVolume.toFixed(2)}cm3, Size: ${size.x.toFixed(1)}x${size.y.toFixed(1)}x${size.z.toFixed(1)}mm`;
                     calculatePrice();
                 };
                 reader.readAsArrayBuffer(file);
             } else {
-                document.getElementById('hiddenSpecs').value = "Design file uploaded (Apparel/Envelopes)";
                 calculatePrice();
             }
         });
@@ -269,80 +293,99 @@
         }
 
         function calculatePrice() {
-            let total = 0;
+            let subtotal = 0;
             const type = serviceType.value;
+            const qty = parseInt(document.getElementById('itemQuantity').value) || 0;
 
-            if (type === '3d') {
-                const multi = parseFloat(document.getElementById('material_select').value);
-                total = 5 + (currentVolume * 0.50 * multi);
-                document.getElementById('3dOptions').style.display = 'block';
-                document.getElementById('apparelOptions').style.display = 'none';
-            } 
-            else if (type === 'apparel') {
-                const unitPrice = parseFloat(document.getElementById('apparelPrintType').value);
-                const qty = parseInt(document.getElementById('itemQuantity').value) || 1;
-                total = unitPrice * qty;
+            if (type === 'apparel') {
                 document.getElementById('3dOptions').style.display = 'none';
                 document.getElementById('apparelOptions').style.display = 'block';
-                document.getElementById('hiddenSpecs').value = `Apparel: ${qty} units, Side Option: £${unitPrice}`;
+                document.getElementById('sideLabel').innerText = "Apparel Print Sides:";
+                if (sidesDropdown.dataset.mode !== "apparel") {
+                    sidesDropdown.innerHTML = `
+                        <option value="10">Front Only (£10.00)</option>
+                        <option value="20">Front & Back (£20.00)</option>`;
+                    sidesDropdown.dataset.mode = "apparel";
+                }
+                subtotal = parseFloat(sidesDropdown.value) * qty;
+                document.getElementById('hiddenSpecs').value = `Apparel: ${qty} units, Option: ${sidesDropdown.options[sidesDropdown.selectedIndex].text}`;
             } 
-            else {
-                total = 10; // Envelopes flat rate
+            else if (type === 'envelopes') {
                 document.getElementById('3dOptions').style.display = 'none';
+                document.getElementById('apparelOptions').style.display = 'block';
+                document.getElementById('sideLabel').innerText = "Envelope Print Sides:";
+                if (sidesDropdown.dataset.mode !== "envelopes") {
+                    sidesDropdown.innerHTML = `
+                        <option value="0.25">One Side (£2.50 per 10pcs)</option>
+                        <option value="0.50">Both Sides (£5.00 per 10pcs)</option>`;
+                    sidesDropdown.dataset.mode = "envelopes";
+                }
+                subtotal = parseFloat(sidesDropdown.value) * qty;
+                document.getElementById('hiddenSpecs').value = `Envelopes: ${qty} units, Style: ${sidesDropdown.options[sidesDropdown.selectedIndex].text}`;
+            }
+            else if (type === '3d') {
+                document.getElementById('3dOptions').style.display = 'block';
                 document.getElementById('apparelOptions').style.display = 'none';
+                const multi = parseFloat(materialSelect.value);
+                subtotal = 5 + (currentVolume * 0.50 * multi);
+                document.getElementById('hiddenSpecs').value = `3D Print: Vol ${currentVolume.toFixed(2)}cm3`;
             }
 
+            const vat = subtotal * 0.20;
+            const total = subtotal + vat;
+
             displayPrice.innerText = total.toFixed(2);
-            document.getElementById('hiddenPrice').value = "£" + total.toFixed(2);
+            subPrice.innerText = subtotal.toFixed(2);
+            vatAmount.innerText = vat.toFixed(2);
+            document.getElementById('hiddenPrice').value = `£${total.toFixed(2)} (Sub: £${subtotal.toFixed(2)} + VAT: £${vat.toFixed(2)})`;
         }
 
-        // Listeners for all inputs
+        calculatePrice();
+
         serviceType.addEventListener('change', calculatePrice);
-        document.getElementById('material_select').addEventListener('change', calculatePrice);
-        document.getElementById('apparelPrintType').addEventListener('change', calculatePrice);
+        materialSelect.addEventListener('change', calculatePrice);
+        colorSelect.addEventListener('change', () => {
+            if(mesh) mesh.material.color.set(colorSelect.value);
+            calculatePrice();
+        });
+        sidesDropdown.addEventListener('change', calculatePrice);
         document.getElementById('itemQuantity').addEventListener('input', calculatePrice);
 
-        // --- SUBMISSION LOGIC ---
         const form = document.getElementById('quoteForm');
-        const status = document.getElementById('formStatus');
-        const btn = document.getElementById('submitBtn');
-
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const status = document.getElementById('formStatus');
+            const name = document.getElementById('custName').value;
+            
             btn.disabled = true;
             btn.innerText = "Sending Request...";
-            status.style.display = "block";
-            status.style.background = "#f0f0f0";
-            status.innerText = "Processing...";
-
-            const formData = new FormData(form);
 
             fetch(form.action, {
                 method: 'POST',
-                body: formData,
+                body: new FormData(form),
                 headers: { 'Accept': 'application/json' }
-            })
-            .then(response => {
+            }).then(response => {
                 if (response.ok) {
+                    status.style.display = "block";
                     status.style.background = "#dff6dd";
-                    status.style.color = "green";
-                    status.innerText = "🔥 Success! NikStef has received your request.";
-                    form.reset();
-                    if(mesh) scene.remove(mesh);
-                    document.getElementById('placeholder-msg').style.display = 'block';
-                    document.getElementById('displayPrice').innerText = "0.00";
-                    btn.innerText = "Sent!";
+                    status.style.color = "#2d5a27";
+                    status.innerHTML = "✅ Success! NikStef has received your request.";
+                    document.getElementById('payment-box').style.display = "block";
+                    btn.innerText = "Order Sent!";
+
+                    const waNumber = "447305378435";
+                    const totalVal = displayPrice.innerText;
+                    const subVal = subPrice.innerText;
+                    const vatVal = vatAmount.innerText;
+                    const waMsg = encodeURIComponent(`Hi NikStef, I've just sent a request and I'm ready to pay via bank transfer.\n\nName: ${name}\nSubtotal: £${subVal}\nVAT (20%): £${vatVal}\nTotal: £${totalVal}`);
+                    document.getElementById('whatsappLink').href = `https://wa.me/${waNumber}?text=${waMsg}`;
                 } else {
+                    status.style.display = "block";
                     status.style.background = "#f6dddd";
-                    status.style.color = "red";
                     status.innerText = "Error sending. Please try again.";
                     btn.disabled = false;
-                    btn.innerText = "Try Again";
                 }
-            })
-            .catch(error => {
-                status.innerText = "Network error.";
-                btn.disabled = false;
             });
         });
     </script>
