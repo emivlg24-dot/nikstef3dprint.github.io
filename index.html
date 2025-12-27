@@ -316,8 +316,8 @@
                 document.getElementById('sideLabel').innerText = "Envelope Print Sides:";
                 if (sidesDropdown.dataset.mode !== "envelopes") {
                     sidesDropdown.innerHTML = `
-                        <option value="0.25">One Side (£2.50 per 10pcs)</option>
-                        <option value="0.50">Both Sides (£5.00 per 10pcs)</option>`;
+                        <option value="0.15">One Side (£0.15 per 1pcs)</option>
+                        <option value="0.30">Both Sides (£0.30 per 1pcs)</option>`;
                     sidesDropdown.dataset.mode = "envelopes";
                 }
                 subtotal = parseFloat(sidesDropdown.value) * qty;
