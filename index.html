@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NikStef3DPrint | Custom 3D Printing & Personalisation</title>
     
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/STLLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
@@ -13,25 +15,27 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; scroll-behavior: smooth; }
         body { background-color: #f0f2f5; color: #222; line-height: 1.6; }
+        
         :root { 
             --primary: #ff4b5c; 
-            --secondary: #2d3436; 
+            --secondary: #0a0e14; 
             --accent: #00b894; 
             --whatsapp: #25D366;
             --light: #ffffff; 
             --gray: #f8f9fa; 
         }
 
-        header { background: var(--secondary); padding: 1rem 5%; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        header { background: var(--secondary); padding: 0.6rem 5%; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         .header-container { max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-        .logo { color: var(--light); font-size: 1.8rem; font-weight: 800; text-decoration: none; letter-spacing: 1px; }
-        .logo span { color: var(--primary); }
-        .nav-links { display: flex; gap: 2rem; margin: 1rem 0; }
+        .logo-link { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 60px; width: auto; object-fit: contain; }
+        
+        .nav-links { display: flex; gap: 2rem; }
         .nav-links a { color: var(--light); text-decoration: none; font-weight: 500; transition: 0.2s; }
         .nav-links a:hover { color: var(--primary); }
         .cta-btn { background: var(--primary); color: var(--light); padding: 0.6rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 600; }
 
-        .hero { background: linear-gradient(rgba(45, 52, 54, 0.8), rgba(45, 52, 54, 0.8)), url('https://images.unsplash.com/photo-1631033100142-99079979709c?auto=format&fit=crop&q=80&w=1600') center/cover; color: var(--light); padding: 6rem 5%; text-align: center; }
+        .hero { background: linear-gradient(rgba(10, 14, 20, 0.8), rgba(10, 14, 20, 0.8)), url('https://images.unsplash.com/photo-1631033100142-99079979709c?auto=format&fit=crop&q=80&w=1600') center/cover; color: var(--light); padding: 6rem 5%; text-align: center; }
         .hero h1 { font-size: 3rem; margin-bottom: 1.5rem; }
         .hero h1 span { color: var(--primary); }
         .btn { padding: 1rem 2.5rem; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.2s; border: none; cursor: pointer; }
@@ -46,8 +50,10 @@
 
         .contact { padding: 5rem 5%; max-width: 1100px; margin: 0 auto 5rem auto; background: var(--light); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
-        #canvas-container { width: 100%; height: 250px; background: #eee; border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 1rem; border: 1px solid #ddd; }
         
+        #canvas-container { width: 100%; height: 250px; background: #eee; border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 1rem; border: 1px solid #ddd; }
+        #dims-display { display: none; background: #e9ecef; padding: 10px; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; border: 1px solid #ced4da; color: #495057; }
+
         .contact-form input, .contact-form textarea, .contact-form select { width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
         .address-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0.5rem; }
         
@@ -56,7 +62,6 @@
         
         .contact-form button { background: var(--primary); color: var(--light); width: 100%; padding: 1rem; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .contact-form button:hover { opacity: 0.9; }
-        .contact-form button:disabled { background: #ccc; cursor: not-allowed; }
 
         #payment-box { display: none; margin-top: 1.5rem; padding: 1.5rem; background: #f0fff4; border: 2px solid var(--accent); border-radius: 10px; }
         .whatsapp-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--whatsapp); color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: 700; margin-top: 15px; width: 100%; transition: 0.3s; }
@@ -64,13 +69,14 @@
         .whatsapp-btn i { margin-right: 10px; font-size: 1.3rem; }
 
         footer { background: var(--secondary); padding: 3rem 5%; text-align: center; color: white; }
+        .footer-logo { height: 50px; margin-bottom: 1rem; }
         .vat-breakdown { font-size: 0.85rem; color: #666; margin-top: 5px; text-align: center; }
 
         @media (max-width: 768px) { 
             .contact-grid { grid-template-columns: 1fr; } 
-            .address-row { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2rem; }
             .nav-links { display: none; }
+            .logo-img { height: 50px; }
         }
     </style>
 </head>
@@ -78,7 +84,9 @@
 
     <header>
         <div class="header-container">
-            <a href="#" class="logo">Nik<span>Stef</span>3DPrint</a>
+            <a href="#" class="logo-link">
+                <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="NikStef3DPrint Logo" class="logo-img">
+            </a>
             <nav class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#services">Services</a>
@@ -133,6 +141,9 @@
                                 <i class="fas fa-cube fa-2x"></i><br><small>Upload STL to see 3D Preview</small>
                             </div>
                         </div>
+                        <div id="dims-display">
+                            <i class="fas fa-arrows-alt"></i> <strong>Dimensions:</strong> <span id="stl-dims">0 x 0 x 0</span> mm
+                        </div>
                         <div class="address-row">
                             <div>
                                 <label style="font-weight: 600; font-size: 0.8rem;">Material:</label>
@@ -182,18 +193,18 @@
                 <input type="hidden" name="estimated_price" id="hiddenPrice">
                 <input type="hidden" name="order_details" id="hiddenSpecs">
 
-                <input type="text" name="customer_name" id="custName" placeholder="Your Full Name" required>
+                <input type="text" name="customer_name" placeholder="Your Full Name" required>
                 <input type="email" name="customer_email" placeholder="Your Email Address" required>
                 
                 <p style="font-weight: 600; margin-bottom: 5px; font-size: 0.9rem;">Delivery Details:</p>
-                <input type="text" name="street" id="custStreet" placeholder="Street Address" required>
+                <input type="text" name="street" placeholder="Street Address" required>
                 <div class="address-row">
-                    <input type="text" name="city" id="custCity" placeholder="City" required>
-                    <input type="text" name="postcode" id="custPostcode" placeholder="Postcode" required>
+                    <input type="text" name="city" placeholder="City" required>
+                    <input type="text" name="postcode" placeholder="Postcode" required>
                 </div>
 
                 <label class="file-input-label" for="stl_file">
-                    <i class="fas fa-cloud-upload-alt"></i> <strong>Upload STL / Design File</strong>
+                    <i class="fas fa-cloud-upload-alt"></i> <strong>Upload Design File</strong>
                     <input type="file" id="stl_file" name="uploaded_file" style="display:none">
                     <p id="fileNameDisplay" style="font-size: 0.8rem; color: var(--accent); margin-top:5px;"></p>
                 </label>
@@ -211,8 +222,6 @@
                         <strong>Sort Code:</strong> 04-00-04<br>
                         <strong>Account:</strong> 11254040
                     </div>
-                    <p style="font-size: 0.85rem; color: #444;">Please transfer the estimated total. Once sent, confirm your order via WhatsApp.</p>
-
                     <a href="#" id="whatsappLink" target="_blank" class="whatsapp-btn">
                         <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
                     </a>
@@ -222,8 +231,8 @@
     </section>
 
     <footer>
-        <div class="logo">Nik<span>Stef</span>3DPrint</div>
-        <p style="margin-top: 1rem;">&copy; 2025 NikStef3DPrint. Bradford, UK. All rights reserved.</p>
+        <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="NikStef3DPrint" class="footer-logo">
+        <p>&copy; 2024 NikStef3DPrint. Bradford, UK. All rights reserved.</p>
     </footer>
 
     <script>
@@ -252,7 +261,27 @@
             scene.add(light);
             renderLoop();
         }
-        function renderLoop() { requestAnimationFrame(renderLoop); renderer.render(scene, camera); }
+        function renderLoop() { requestAnimationFrame(renderLoop); if(renderer) renderer.render(scene, camera); }
+
+        function applyMulticolor(geometry, baseHex) {
+            geometry.computeBoundingBox();
+            const bbox = geometry.boundingBox;
+            const sizeZ = bbox.max.z - bbox.min.z || 1;
+            const count = geometry.attributes.position.count;
+            const colors = new Float32Array(count * 3);
+            const colorA = new THREE.Color(baseHex);
+            const colorB = new THREE.Color(0x111111);
+
+            for (let i = 0; i < count; i++) {
+                const z = geometry.attributes.position.getZ(i);
+                const percentage = (z - bbox.min.z) / sizeZ;
+                const mixed = colorA.clone().lerp(colorB, percentage * 0.4);
+                colors[i * 3] = mixed.r;
+                colors[i * 3 + 1] = mixed.g;
+                colors[i * 3 + 2] = mixed.b;
+            }
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        }
 
         document.getElementById('stl_file').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -264,10 +293,18 @@
                     if (!scene) init3D();
                     if (mesh) scene.remove(mesh);
                     const geometry = new THREE.STLLoader().parse(ev.target.result);
-                    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: colorSelect.value }));
+                    applyMulticolor(geometry, colorSelect.value);
+                    const material = new THREE.MeshPhongMaterial({ vertexColors: true, shininess: 80 });
+                    mesh = new THREE.Mesh(geometry, material);
                     geometry.computeBoundingBox();
+                    const bbox = geometry.boundingBox;
+                    const x = (bbox.max.x - bbox.min.x).toFixed(1);
+                    const y = (bbox.max.y - bbox.min.y).toFixed(1);
+                    const z = (bbox.max.z - bbox.min.z).toFixed(1);
+                    document.getElementById('stl-dims').innerText = `${x} x ${y} x ${z}`;
+                    document.getElementById('dims-display').style.display = 'block';
                     const center = new THREE.Vector3();
-                    geometry.boundingBox.getCenter(center);
+                    bbox.getCenter(center);
                     mesh.position.sub(center);
                     scene.add(mesh);
                     currentVolume = calculateVolume(geometry) / 1000;
@@ -294,97 +331,79 @@
 
         function calculatePrice() {
             let subtotal = 0;
+            let finalDetails = "";
             const type = serviceType.value;
-            const qty = parseInt(document.getElementById('itemQuantity').value) || 0;
+            const qty = parseInt(document.getElementById('itemQuantity').value) || 1;
 
-            if (type === 'apparel') {
+            if (type === '3d') {
+                document.getElementById('3dOptions').style.display = 'block';
+                document.getElementById('apparelOptions').style.display = 'none';
+                const multiplier = parseFloat(materialSelect.value);
+                subtotal = 5 + (currentVolume * 0.50 * multiplier);
+                
+                // Get display text for material and color
+                const matText = materialSelect.options[materialSelect.selectedIndex].text;
+                const colText = colorSelect.options[colorSelect.selectedIndex].text;
+                finalDetails = `3D Print: ${matText}, Color: ${colText}, Vol: ${currentVolume.toFixed(2)}cm3`;
+            } 
+            else if (type === 'apparel') {
                 document.getElementById('3dOptions').style.display = 'none';
                 document.getElementById('apparelOptions').style.display = 'block';
                 document.getElementById('sideLabel').innerText = "Apparel Print Sides:";
                 if (sidesDropdown.dataset.mode !== "apparel") {
-                    sidesDropdown.innerHTML = `
-                        <option value="10">Front Only (£10.00)</option>
-                        <option value="20">Front & Back (£20.00)</option>`;
+                    sidesDropdown.innerHTML = `<option value="10">Front Only (£10.00)</option><option value="20">Front & Back (£20.00)</option>`;
                     sidesDropdown.dataset.mode = "apparel";
                 }
                 subtotal = parseFloat(sidesDropdown.value) * qty;
-                document.getElementById('hiddenSpecs').value = `Apparel: ${qty} units, Option: ${sidesDropdown.options[sidesDropdown.selectedIndex].text}`;
-            } 
+                finalDetails = `Apparel: ${sidesDropdown.options[sidesDropdown.selectedIndex].text}, Qty: ${qty}`;
+            }
             else if (type === 'envelopes') {
                 document.getElementById('3dOptions').style.display = 'none';
                 document.getElementById('apparelOptions').style.display = 'block';
                 document.getElementById('sideLabel').innerText = "Envelope Print Sides:";
                 if (sidesDropdown.dataset.mode !== "envelopes") {
-                    sidesDropdown.innerHTML = `
-                        <option value="0.15">One Side (£0.15 per 1pcs)</option>
-                        <option value="0.30">Both Sides (£0.30 per 1pcs)</option>`;
+                    sidesDropdown.innerHTML = `<option value="0.15">One Side (£0.15 per unit)</option><option value="0.30">Both Sides (£0.30 per unit)</option>`;
                     sidesDropdown.dataset.mode = "envelopes";
                 }
                 subtotal = parseFloat(sidesDropdown.value) * qty;
-                document.getElementById('hiddenSpecs').value = `Envelopes: ${qty} units, Style: ${sidesDropdown.options[sidesDropdown.selectedIndex].text}`;
-            }
-            else if (type === '3d') {
-                document.getElementById('3dOptions').style.display = 'block';
-                document.getElementById('apparelOptions').style.display = 'none';
-                const multi = parseFloat(materialSelect.value);
-                subtotal = 5 + (currentVolume * 0.50 * multi);
-                document.getElementById('hiddenSpecs').value = `3D Print: Vol ${currentVolume.toFixed(2)}cm3`;
+                finalDetails = `Envelopes: ${sidesDropdown.options[sidesDropdown.selectedIndex].text}, Qty: ${qty}`;
             }
 
             const vat = subtotal * 0.20;
             const total = subtotal + vat;
-
             displayPrice.innerText = total.toFixed(2);
             subPrice.innerText = subtotal.toFixed(2);
             vatAmount.innerText = vat.toFixed(2);
-            document.getElementById('hiddenPrice').value = `£${total.toFixed(2)} (Sub: £${subtotal.toFixed(2)} + VAT: £${vat.toFixed(2)})`;
+            
+            // UPDATE HIDDEN FIELDS FOR EMAIL
+            document.getElementById('hiddenPrice').value = `£${total.toFixed(2)}`;
+            document.getElementById('hiddenSpecs').value = finalDetails;
         }
 
-        calculatePrice();
-
-        serviceType.addEventListener('change', calculatePrice);
-        materialSelect.addEventListener('change', calculatePrice);
         colorSelect.addEventListener('change', () => {
-            if(mesh) mesh.material.color.set(colorSelect.value);
+            if(mesh) { applyMulticolor(mesh.geometry, colorSelect.value); mesh.geometry.attributes.color.needsUpdate = true; }
             calculatePrice();
         });
-        sidesDropdown.addEventListener('change', calculatePrice);
+        serviceType.addEventListener('change', calculatePrice);
+        materialSelect.addEventListener('change', calculatePrice);
         document.getElementById('itemQuantity').addEventListener('input', calculatePrice);
+        sidesDropdown.addEventListener('change', calculatePrice);
 
         const form = document.getElementById('quoteForm');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             const status = document.getElementById('formStatus');
-            const name = document.getElementById('custName').value;
+            btn.disabled = true; btn.innerText = "Sending...";
             
-            btn.disabled = true;
-            btn.innerText = "Sending Request...";
-
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    status.style.display = "block";
-                    status.style.background = "#dff6dd";
-                    status.style.color = "#2d5a27";
-                    status.innerHTML = "✅ Success! NikStef has received your request.";
+            fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+            .then(res => {
+                if (res.ok) {
+                    status.style.display = "block"; status.style.background = "#dff6dd"; status.innerHTML = "✅ Sent! Follow instructions below.";
                     document.getElementById('payment-box').style.display = "block";
-                    btn.innerText = "Order Sent!";
-
-                    const waNumber = "447305378435";
-                    const totalVal = displayPrice.innerText;
-                    const subVal = subPrice.innerText;
-                    const vatVal = vatAmount.innerText;
-                    const waMsg = encodeURIComponent(`Hi NikStef, I've just sent a request and I'm ready to pay via bank transfer.\n\nName: ${name}\nSubtotal: £${subVal}\nVAT (20%): £${vatVal}\nTotal: £${totalVal}`);
-                    document.getElementById('whatsappLink').href = `https://wa.me/${waNumber}?text=${waMsg}`;
-                } else {
-                    status.style.display = "block";
-                    status.style.background = "#f6dddd";
-                    status.innerText = "Error sending. Please try again.";
-                    btn.disabled = false;
+                    // Update WhatsApp with detail summary
+                    const waMsg = encodeURIComponent(`Hi NikStef, I've sent a request for ${document.getElementById('hiddenSpecs').value}. Total: £${displayPrice.innerText}`);
+                    document.getElementById('whatsappLink').href = `https://wa.me/447305378435?text=${waMsg}`;
                 }
             });
         });
