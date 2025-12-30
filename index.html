@@ -164,6 +164,15 @@
                                 </select>
                             </div>
                         </div>
+                        <div style="margin-top: 10px;">
+                            <label style="font-weight: 600; font-size: 0.8rem;">Infill Density:</label>
+                            <select id="infill_select">
+                                <option value="0.15">15% Infill</option>
+                                <option value="0.30" selected>25% Infill</option>
+                                <option value="0.35">50% Infill</option>
+                                <option value="0.50">100% Infill</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div id="apparelOptions" style="display:none;">
@@ -173,7 +182,7 @@
                         <input type="number" id="itemQuantity" value="1" min="1">
                     </div>
 
-                    <div style="background: #fff; padding: 1rem; border-radius: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #ddd;">
+                    <div style="background: #fff; padding: 1rem; border-radius: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #ddd; margin-top: 15px;">
                         <div style="font-size: 1.5rem; font-weight: 800; text-align: center;">
                             Total: <span style="color: var(--primary);">£<span id="displayPrice">0.00</span></span>
                         </div>
@@ -240,6 +249,7 @@
         const serviceType = document.getElementById('serviceType');
         const colorSelect = document.getElementById('color_select');
         const materialSelect = document.getElementById('material_select');
+        const infillSelect = document.getElementById('infill_select');
         const displayPrice = document.getElementById('displayPrice');
         const subPrice = document.getElementById('subPrice');
         const vatAmount = document.getElementById('vatAmount');
@@ -338,13 +348,17 @@
             if (type === '3d') {
                 document.getElementById('3dOptions').style.display = 'block';
                 document.getElementById('apparelOptions').style.display = 'none';
-                const multiplier = parseFloat(materialSelect.value);
-                subtotal = 5 + (currentVolume * 0.50 * multiplier);
                 
-                // Get display text for material and color
+                const matMultiplier = parseFloat(materialSelect.value);
+                const infillRate = parseFloat(infillSelect.value); // Uses 0.15, 0.30, 0.35, 0.50
+                
+                // Base Fee £5 + (Volume * Infill Rate * Material Multiplier)
+                subtotal = 5 + (currentVolume * infillRate * matMultiplier);
+                
                 const matText = materialSelect.options[materialSelect.selectedIndex].text;
                 const colText = colorSelect.options[colorSelect.selectedIndex].text;
-                finalDetails = `3D Print: ${matText}, Color: ${colText}, Vol: ${currentVolume.toFixed(2)}cm3`;
+                const infillText = infillSelect.options[infillSelect.selectedIndex].text;
+                finalDetails = `3D Print: ${matText}, Color: ${colText}, Infill: ${infillText}, Vol: ${currentVolume.toFixed(2)}cm3`;
             } 
             else if (type === 'apparel') {
                 document.getElementById('3dOptions').style.display = 'none';
@@ -375,7 +389,6 @@
             subPrice.innerText = subtotal.toFixed(2);
             vatAmount.innerText = vat.toFixed(2);
             
-            // UPDATE HIDDEN FIELDS FOR EMAIL
             document.getElementById('hiddenPrice').value = `£${total.toFixed(2)}`;
             document.getElementById('hiddenSpecs').value = finalDetails;
         }
@@ -386,6 +399,7 @@
         });
         serviceType.addEventListener('change', calculatePrice);
         materialSelect.addEventListener('change', calculatePrice);
+        infillSelect.addEventListener('change', calculatePrice);
         document.getElementById('itemQuantity').addEventListener('input', calculatePrice);
         sidesDropdown.addEventListener('change', calculatePrice);
 
@@ -401,7 +415,6 @@
                 if (res.ok) {
                     status.style.display = "block"; status.style.background = "#dff6dd"; status.innerHTML = "✅ Sent! Follow instructions below.";
                     document.getElementById('payment-box').style.display = "block";
-                    // Update WhatsApp with detail summary
                     const waMsg = encodeURIComponent(`Hi NikStef, I've sent a request for ${document.getElementById('hiddenSpecs').value}. Total: £${displayPrice.innerText}`);
                     document.getElementById('whatsappLink').href = `https://wa.me/447305378435?text=${waMsg}`;
                 }
