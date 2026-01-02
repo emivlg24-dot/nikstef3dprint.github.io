@@ -1,488 +1,386 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NikStef3DPrint | Custom 3D Printing & Personalisation</title>
-    
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NikStef CyberLab | 3D Printing & Custom Branding Bradford</title>
+    
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/STLLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; scroll-behavior: smooth; }
-        body { background-color: #f0f2f5; color: #222; line-height: 1.6; }
-        
-        :root { 
-            --primary: #ff4b5c; 
-            --secondary: #0a0e14; 
-            --accent: #00b894; 
-            --whatsapp: #25D366;
-            --light: #ffffff; 
-            --gray: #f8f9fa; 
-        }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
 
-        header { background: var(--secondary); padding: 0.6rem 5%; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .header-container { max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-        .logo-link { display: flex; align-items: center; text-decoration: none; }
-        .logo-img { height: 60px; width: auto; object-fit: contain; }
-        
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a { color: var(--light); text-decoration: none; font-weight: 500; transition: 0.2s; cursor: pointer; }
-        .nav-links a:hover { color: var(--primary); }
-        .cta-btn { background: var(--primary); color: var(--light); padding: 0.6rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; }
+        :root { 
+            --primary: #ff003c; 
+            --accent: #00f3ff; 
+            --bg-dark: #050505;
+            --panel-bg: rgba(15, 15, 20, 0.98);
+            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.4);
+            --success: #39ff14;
+        }
 
-        .page-content { display: none; padding-top: 2rem; }
-        .page-content.active { display: block; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: #f0f0f0; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-        .hero { background: linear-gradient(rgba(10, 14, 20, 0.8), rgba(10, 14, 20, 0.8)), url('https://images.unsplash.com/photo-1631033100142-99079979709c?auto=format&fit=crop&q=80&w=1600') center/cover; color: var(--light); padding: 6rem 5%; text-align: center; margin-top: -2rem; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1.5rem; }
-        .hero h1 span { color: var(--primary); }
-        .btn { padding: 1rem 2.5rem; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.2s; border: none; cursor: pointer; }
-        .btn-primary { background: var(--primary); color: var(--light); margin-right: 10px; }
+        /* Professional Header */
+        header { background: rgba(5, 5, 5, 0.95); padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--accent); backdrop-filter: blur(10px); }
+        .header-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo-text { font-family: 'Orbitron'; color: #fff; text-shadow: 2px 2px var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
 
-        .services, .portfolio { padding: 5rem 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { text-align: center; margin-bottom: 4rem; }
-        .services-grid, .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2.5rem; }
-        .service-card { background: var(--light); padding: 2.5rem; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: center; transition: 0.3s; cursor: pointer; }
-        .service-card:hover { transform: translateY(-10px); border-bottom: 4px solid var(--primary); }
-        .service-icon { font-size: 3rem; color: var(--primary); margin-bottom: 1.5rem; }
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-links a { font-family: 'Orbitron'; color: var(--accent); text-decoration: none; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; text-shadow: var(--glow-cyan); }
 
-        .portfolio-card { background: var(--light); border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); position: relative; }
-        .portfolio-img { width: 100%; height: 230px; object-fit: cover; display: block; }
-        .portfolio-info { padding: 1.5rem; }
-        .delete-btn { position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: none; z-index: 5; align-items: center; justify-content: center; font-weight: bold; }
-        .edit-fields { display: none; margin-top: 10px; }
-        .edit-fields input { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.8rem; }
-        
-        .admin-controls { text-align: center; margin-top: 3rem; padding: 2rem; background: #eee; border-radius: 15px; }
-        .admin-btn { padding: 10px 20px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; font-weight: 600; }
-        .add-btn { background: var(--accent); color: white; border: none; display: none; }
-        .export-btn { background: #3498db; color: white; border: none; display: none; }
+        .cta-btn { 
+            background: transparent; color: var(--accent); padding: 0.7rem 1.8rem; border: 1px solid var(--accent);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); font-family: 'Orbitron'; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .cta-btn:hover { background: var(--accent); color: #000; box-shadow: var(--glow-cyan); }
 
-        .order-section { padding: 2rem 5%; max-width: 1100px; margin: 0 auto 5rem auto; background: var(--light); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
-        #canvas-container { width: 100%; height: 250px; background: #eee; border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 1rem; border: 1px solid #ddd; }
-        #dims-display { display: none; background: #e9ecef; padding: 10px; border-radius: 8px; margin-bottom: 1rem; text-align: center; font-size: 0.9rem; border: 1px solid #ced4da; color: #495057; }
-        
-        .contact-form input, .contact-form textarea, .contact-form select { width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
-        .address-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0.5rem; }
+        .page-content { display: none; padding: 4rem 5%; min-height: 85vh; animation: fadeIn 0.5s ease; }
+        .page-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        .file-input-label { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            background: #fdfdfd; border: 2px dashed #ccd1d9; padding: 2rem; border-radius: 16px; 
-            text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative;
-        }
-        .file-input-label:hover { border-color: var(--primary); background: #fffafa; transform: translateY(-2px); }
-        .file-input-label i { font-size: 2.5rem; color: var(--primary); margin-bottom: 0.8rem; }
-        #fileNameDisplay { display: none; margin-top: 10px; font-size: 0.9rem; color: var(--accent); font-weight: 700; background: #e6fffa; padding: 5px 15px; border-radius: 20px; }
-        
-        .whatsapp-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--whatsapp); color: white; padding: 12px 20px; border-radius: 25px; text-decoration: none; font-weight: 700; margin-top: 15px; width: 100%; transition: 0.3s; }
-        #payment-box { display: none; margin-top: 1.5rem; padding: 1.5rem; background: #f0fff4; border: 2px solid var(--accent); border-radius: 10px; }
-        .vat-breakdown { font-size: 0.85rem; color: #666; margin-top: 5px; text-align: center; }
-        
-        .contact-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding: 2rem 5%; }
-        .info-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .info-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 1.1rem; }
-        .info-item i { color: var(--primary); font-size: 1.5rem; width: 30px; text-align: center; }
+        /* Hero */
+        .hero { padding: 10rem 5%; text-align: center; border-bottom: 2px solid var(--primary); background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1600') center/cover; }
+        .hero h1 { font-family: 'Orbitron'; font-size: clamp(2rem, 6vw, 4rem); text-shadow: 0 0 30px var(--primary); margin-bottom: 1rem; }
 
-        footer { background: var(--secondary); padding: 3rem 5%; text-align: center; color: white; margin-top: 2rem; }
+        /* Review Section */
+        .reviews-section { padding: 4rem 0; background: rgba(255, 255, 255, 0.02); margin: 4rem 0; border-top: 1px solid #111; border-bottom: 1px solid #111; }
+        .review-card { background: #111; border: 1px solid #222; padding: 1.5rem; border-radius: 4px; transition: 0.3s; }
+        .review-card:hover { border-color: var(--success); }
+        .stars { color: #ffaa00; margin-bottom: 10px; }
 
-        @media (max-width: 768px) { .contact-grid, .contact-container, .portfolio-grid { grid-template-columns: 1fr; } .nav-links { display: none; } }
-    </style>
+        /* Map Container */
+        .map-container { border: 2px solid var(--accent); border-radius: 4px; overflow: hidden; height: 350px; position: relative; box-shadow: var(--glow-cyan); }
+
+        /* Portfolio */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
+        .portfolio-card { background: #0a0a0a; border: 1px solid #1a1a1a; transition: 0.4s; overflow: hidden; position: relative; }
+        .portfolio-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .portfolio-img { width: 100%; height: 250px; object-fit: cover; }
+        
+        .delete-btn { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; border: none; width: 35px; height: 35px; display: none; cursor: pointer; z-index: 10; font-weight: bold; }
+
+        #displayPrice { font-family: 'Orbitron'; font-size: 3.5rem; color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+
+        /* Order Panel */
+        .order-section { background: var(--panel-bg); border: 1px solid var(--accent); padding: 2rem; }
+        #canvas-container { height: 400px; background: #000; border: 2px solid var(--accent); margin-bottom: 1rem; position: relative; }
+        .live-pulse { animation: pulse-border 2.5s infinite; }
+        @keyframes pulse-border { 0%, 100% { border-color: rgba(0, 243, 255, 0.2); } 50% { border-color: rgba(0, 243, 255, 1); } }
+
+        input, select, textarea { 
+            background: #000 !important; color: #fff !important; border: 1px solid #333 !important; 
+            padding: 12px !important; margin-bottom: 1rem !important; font-family: 'Rajdhani'; width: 100%;
+        }
+
+        footer { text-align: center; padding: 4rem; font-family: 'Orbitron'; color: #444; border-top: 1px solid #111; font-size: 0.8rem; }
+        
+        @media (max-width: 1024px) { .order-grid { display: block !important; } .nav-links { display: none; } }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <a href="#" onclick="showPage('home')" class="logo-link">
-                <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="NikStef3DPrint Logo" class="logo-img">
-            </a>
-            <nav class="nav-links">
-                <a onclick="showPage('home')">Home</a>
-                <a onclick="showPage('order', '3d')">3D Printing</a>
-                <a onclick="showPage('order', 'apparel')">Clothing</a>
-                <a onclick="showPage('order', 'envelopes')">Invitations</a>
-                <a onclick="showPage('contact')">Contact</a>
-            </nav>
-            <button onclick="showPage('order')" class="cta-btn">Get A Quote</button>
-        </div>
-    </header>
+    <header>
+        <div class="header-container">
+            <a href="#" onclick="showPage('home')" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
+                <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="Logo" style="height:40px; border: 1px solid var(--accent);">
+                <span class="logo-text">NikStef // CyberLab</span>
+            </a>
+            <nav class="nav-links">
+                <a onclick="showPage('home')">// HOME</a>
+                <a onclick="showPage('order', '3d')">// FABRICATE</a>
+                <a onclick="showPage('contact')">// UPLINK</a>
+            </nav>
+            <button onclick="showPage('order')" class="cta-btn">GET_QUOTE</button>
+        </div>
+    </header>
 
-    <div id="homePage" class="page-content active">
-        <section class="hero">
-            <h1>NikStef <span>Custom</span> Studio</h1>
-            <p>Professional 3D Printing, Branded Clothing & Invitations in Bradford!</p>
-            <div style="margin-top: 2rem;">
-                <button onclick="showPage('order')" class="btn btn-primary">Start Order</button>
-            </div>
-        </section>
+    <div id="homePage" class="page-content active">
+        <section class="hero">
+            <h1>FABRICATION_LOG</h1>
+            <p>> 3D_PRINTING // BRANDING // LOGISTICS_BRADFORD</p>
+        </section>
 
-        <section class="services">
-            <div class="section-title"><h2>Choose Your Category</h2></div>
-            <div class="services-grid">
-                <div class="service-card" onclick="showPage('order', '3d')">
-                    <div class="service-icon">🖨️</div>
-                    <h3>3D Printing</h3>
-                    <p>FDM printing with STL preview and volume calculation.</p>
-                </div>
-                <div class="service-card" onclick="showPage('order', 'apparel')">
-                    <div class="service-icon">👕</div>
-                    <h3>Clothing</h3>
-                    <p>Custom T-shirts and Hoodies with quality prints.</p>
-                </div>
-                <div class="service-card" onclick="showPage('order', 'envelopes')">
-                    <div class="service-icon">✉️</div>
-                    <h3>Invitations</h3>
-                    <p>Branded envelopes and personalised event cards.</p>
-                </div>
-            </div>
-        </section>
+        <section class="reviews-section">
+            <h2 style="font-family:'Orbitron'; color:var(--success); text-align:center; margin-bottom:3rem;">// CLIENT_FEEDBACK_VERIFIED</h2>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:2rem; max-width:1400px; margin:0 auto; padding:0 5%;">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Amazing quality on the robotic arm parts. Best 3D service in Bradford."</p>
+                    <small style="color:var(--accent);">- Industrial Client</small>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The branded hoodies for my shop are perfect. Fast turnaround!"</p>
+                    <small style="color:var(--accent);">- Studio Barber</small>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Precise prototypes and great communication. Highly recommended."</p>
+                    <small style="color:var(--accent);">- Engineering Lead</small>
+                </div>
+            </div>
+        </section>
 
-        <section class="portfolio">
-            <div class="section-title">
-                <h2>Recent Projects</h2>
-                <p>Check out our latest work.</p>
-            </div>
-            <div class="portfolio-grid" id="projectGrid">
-                </div>
+        <section class="portfolio">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                <h2 style="font-family:'Orbitron'; color:var(--accent);">// ARCHIVE_LOGS</h2>
+                <div>
+                    <button class="cta-btn" id="editToggleBtn" onclick="toggleEditMode()" style="font-size:0.7rem; padding:5px 15px;">ADMIN_ACCESS</button>
+                    <button class="cta-btn" id="addProjectBtn" style="display:none; margin-left:10px; font-size:0.7rem; padding:5px 15px;" onclick="addProject()">+ ADD_ENTRY</button>
+                </div>
+            </div>
+            <div class="portfolio-grid" id="projectGrid"></div>
+        </section>
+    </div>
 
-            <div class="admin-controls">
-                <button class="admin-btn add-btn" id="addProjectBtn" onclick="addProject()"><i class="fas fa-plus"></i> Add Project</button>
-                <button class="admin-btn export-btn" id="exportBtn" onclick="exportData()"><i class="fas fa-code"></i> Get Data</button>
-                <button class="admin-btn" id="editToggleBtn" onclick="toggleEditMode()"><i class="fas fa-lock"></i> Unlock Admin Edit</button>
-            </div>
-        </section>
-    </div>
+    <div id="orderPage" class="page-content">
+        <div class="order-section">
+            <div class="order-grid" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:4rem;">
+                <div>
+                    <div id="canvas-container" class="live-pulse">
+                        <div id="placeholder-msg" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:var(--accent); text-align:center;">
+                            <i class="fas fa-satellite-dish fa-3x" style="margin-bottom:15px; opacity:0.5;"></i><br>READY_FOR_STL_UPLINK
+                        </div>
+                    </div>
+                    <div id="dims-display" style="color:var(--accent); border: 1px solid #1a1a1a; padding: 18px; font-family:'Orbitron'; font-size: 0.8rem; background: #000;">
+                        DATA_STREAM: <span id="stl-dims">0.0.0</span> MM
+                    </div>
+                </div>
 
-    <div id="contactPage" class="page-content">
-        <div class="section-title"><h2>Contact Us</h2></div>
-        <div class="contact-container">
-            <div class="info-card">
-                <div class="info-item"><i class="fas fa-phone"></i> 07305378435</div>
-                <div class="info-item"><i class="fas fa-envelope"></i> nikstef3dprint@gmail.com</div>
-                <iframe width="100%" height="200" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75476.32688086055!2d-1.8415777771746272!3d53.79708766157158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1315516997d%3A0x286576b976a47a16!2sBradford!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk0" style="border:0; border-radius:10px;"></iframe>
-            </div>
-            <div class="info-card">
-                <form action="https://getform.io/f/bqoqmqvb" method="POST" class="contact-form">
-                    <input type="text" name="name" placeholder="Full Name" required>
-                    <textarea name="message" rows="5" placeholder="Message" required></textarea>
-                    <button type="submit" style="background:var(--secondary); color:white; border:none; padding:1rem; border-radius:30px; cursor:pointer; width:100%;">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </div>
+                <form id="quoteForm" action="https://getform.io/f/bqoqmqvb" method="POST" enctype="multipart/form-data">
+                    <select id="serviceType" name="service_type" onchange="updateCalculator()">
+                        <option value="3d">OBJECT_3D (STL_FABRICATION)</option>
+                        <option value="apparel">BRANDED_APPAREL (WEARABLES)</option>
+                        <option value="cards">BUSINESS_CARDS (BATCH)</option>
+                        <option value="envelopes">ENVELOPES / INVITES</option>
+                    </select>
 
-    <div id="orderPage" class="page-content">
-        <section class="order-section">
-            <div class="section-title"><h2>Custom Quote</h2></div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div style="background: var(--gray); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 5px solid var(--primary);">
-                        <select id="serviceType">
-                            <option value="3d">3D Printing (STL Preview)</option>
-                            <option value="apparel">Branded Apparel</option>
-                            <option value="envelopes">Invitations</option>
-                        </select>
-                        <div id="3dOptions">
-                            <div id="canvas-container"><div id="placeholder-msg" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#888; text-align: center;"><i class="fas fa-cube fa-2x"></i><br><small>Upload STL</small></div></div>
-                            <div id="dims-display"><i class="fas fa-arrows-alt"></i> <strong>Dimensions:</strong> <span id="stl-dims">0 x 0 x 0</span> mm</div>
-                            <div class="address-row">
-                                <select id="material_select"><option value="1.0">PLA (Standard)</option><option value="1.2">ABS (Strong)</option><option value="2.0">TPU (Flexible)</option></select>
-                                <select id="color_select"><option value="#ff4b5c">Red</option><option value="#2d3436">Black</option><option value="#ffffff">White</option><option value="#00b894">Green</option></select>
-                            </div>
-                            <select id="infill_select">
-                                <option value="0.15">15% Infill</option>
-                                <option value="0.30" selected>25% Infill</option>
-                                <option value="0.35">50% Infill</option>
-                                <option value="0.50">100% Infill</option>
-                            </select>
-                        </div>
-                        <div id="apparelOptions" style="display:none;">
-                            <label style="font-weight: 600; font-size: 0.9rem;">Print Setup:</label>
-                            <select id="apparelPrintType"></select>
-                            <input type="number" id="itemQuantity" value="1" min="1">
-                        </div>
-                        <div style="background: #fff; padding: 1rem; border-radius: 8px; border: 1px solid #ddd; margin-top: 15px; text-align: center;">
-                            <div style="font-size: 1.5rem; font-weight: 800;">Total: <span style="color: var(--primary);">£<span id="displayPrice">0.00</span></span></div>
-                            <div class="vat-breakdown">(Subtotal: £<span id="subPrice">0.00</span> + 20% VAT: £<span id="vatAmount">0.00</span>)</div>
-                        </div>
-                    </div>
-                </div>
-                <form action="https://getform.io/f/bqoqmqvb" method="POST" id="quoteForm" class="contact-form" enctype="multipart/form-data">
-                    <input type="hidden" name="estimated_price" id="hiddenPrice">
-                    <input type="hidden" name="order_details" id="hiddenSpecs">
-                    <input type="text" name="customer_name" placeholder="Full Name" required>
-                    <input type="email" name="customer_email" placeholder="Email" required>
-                    <input type="text" name="street" placeholder="Street Address" required>
-                    <div class="address-row">
-                        <input type="text" name="city" placeholder="City" required>
-                        <input type="text" name="postcode" placeholder="Postcode" required>
-                    </div>
+                    <div id="apparel-side-section" style="display:none;">
+                        <select id="apparelSides" name="print_sides" onchange="updateCalculator()">
+                            <option value="10">FRONT_ONLY (£10)</option>
+                            <option value="20">BOTH_SIDES (£20)</option>
+                        </select>
+                    </div>
 
-                    <div class="file-upload-wrapper">
-                        <label class="file-input-label" for="stl_file">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <span>Upload Design File</span>
-                            <small>Drag & drop or click to browse</small>
-                            <input type="file" id="stl_file" name="uploaded_file" style="display:none">
-                            <div id="fileNameDisplay"></div>
-                        </label>
-                    </div>
+                    <div id="quantity-section" style="display:none;">
+                        <input type="number" id="itemQuantity" name="quantity" value="1" min="1" placeholder="QUANTITY" oninput="updateCalculator()">
+                    </div>
 
-                    <textarea name="customer_message" placeholder="Requirements..."></textarea>
-                    <button type="submit" id="submitBtn">Submit Request</button>
-                    
-                    <div id="payment-box">
-                        <h4 style="color: var(--accent);"><i class="fas fa-university"></i> Bank Transfer Details</h4>
-                        <div style="background: #fff; padding: 10px; border-radius: 8px; font-family: monospace; margin: 10px 0; border: 1px solid #c6f6d5;">
-                            Emanuel-Stefan Szoke | SC: 04-00-04 | AC: 11254040
-                        </div>
-                        <a href="#" id="whatsappLink" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Confirm via WhatsApp</a>
-                    </div>
-                </form>
-            </div>
-        </section>
-    </div>
+                    <div id="3dOptions">
+                        <select id="material_select" name="material" onchange="updateCalculator()">
+                            <option value="0.05">PLA (EFFICIENCY)</option>
+                            <option value="0.08">ABS (INDUSTRIAL)</option>
+                            <option value="0.12">TPU (FLEX)</option>
+                        </select>
+                        <select id="color_select" name="color" onchange="updateSTLColor()">
+                            <option value="#7f8c8d">MATTE_GRAY</option>
+                            <option value="#ffffff">PURE_WHITE</option>
+                            <option value="#00f3ff">NEON_BLUE</option>
+                            <option value="#ff003c">NEON_PINK</option>
+                            <option value="#222222">STEALTH_BLACK</option>
+                        </select>
+                    </div>
 
-    <footer><p>© 2024 NikStef3DPrint. Bradford, UK.</p></footer>
+                    <div style="margin: 2rem 0; padding: 1.5rem; border: 1px solid #1a1a1a; background: #000;">
+                        <div id="displayPrice">£0.00</div>
+                        <p style="color: #666; font-size: 0.8rem; margin-top: 10px;">CREDITS INC 20% VAT</p>
+                    </div>
 
-    <script>
-        // --- 1. ADMIN, STORAGE & HARDCODED PROJECTS ---
-        const ADMIN_PASSWORD = "NikS123";
-        let isAdminMode = false;
+                    <input type="text" name="customer_name" placeholder="FULL_NAME" required>
+                    <input type="email" name="customer_email" placeholder="EMAIL_UPLINK" required>
+                    
+                    <div style="padding: 15px; border: 1px solid #1a1a1a; margin-bottom: 1rem;">
+                        <label style="color:var(--accent); font-family:'Orbitron'; font-size:0.6rem; display:block; margin-bottom:5px;">SHIPPING_LOGISTICS:</label>
+                        <input type="text" name="street" placeholder="STREET_ADDRESS" required>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <input type="text" name="city" placeholder="CITY" required>
+                            <input type="text" name="postcode" placeholder="POSTCODE" required>
+                        </div>
+                    </div>
 
-        document.addEventListener('DOMContentLoaded', loadProjects);
+                    <label class="cta-btn" style="display:block; text-align:center; margin-bottom:1.5rem; background: rgba(0,243,255,0.03);">
+                        <i class="fas fa-file-upload"></i> LOAD_STL_BLUEPRINT
+                        <input type="file" id="stl_file" name="uploaded_file" style="display:none">
+                    </label>
 
-        function loadProjects() {
-            const saved = localStorage.getItem('nikStefProjects');
-            let projects;
-            if (saved) {
-                projects = JSON.parse(saved);
-            } else {
-                // Hardcoded projects as requested
-                projects = [
-                    {"title":"Mechanical Spinning Reel Prototype","desc":"3D Printed industrial part using high-strength ABS ","img":"https://i.postimg.cc/YqsHcfg2/Whats-App-Image-2025-12-30-at-15-18-45.jpg"},
-                    {"title":"ROBOTIC ARM","desc":"3D Printed industrial parts using high-strenght ABS.","img":"https://i.postimg.cc/YSxD7MVr/Whats-App-Image-2025-12-31-at-19-50-15.jpg"},
-                    {"title":"Branded Apparel","desc":"Made for Studio Barber ","img":"https://i.postimg.cc/KjCJfzKr/Whats-App-Image-2025-12-31-at-19-50-55.jpg"},
-                    {"title":"Discount Cards","desc":"Made from 300g premium paper ","img":"https://i.postimg.cc/fRcB7MMj/Whats-App-Image-2025-12-31-at-19-52-10.jpg"}
-                ];
-            }
-            if (projects && projects.length > 0) {
-                const grid = document.getElementById('projectGrid');
-                grid.innerHTML = ''; 
-                projects.forEach(p => renderProject(p.title, p.desc, p.img));
-            }
-        }
+                    <button type="submit" id="submitBtn" class="cta-btn" style="width:100%; background:var(--primary); color:white; border:none; height: 55px;">EXECUTE_UPLINK</button>
+                    
+                    <div id="payment-box" style="display:none; margin-top:1.5rem; border: 1px solid var(--success); padding:1.5rem; background: rgba(57, 255, 20, 0.05);">
+                        <p style="font-family:monospace; font-size:0.85rem; color:var(--success);">
+                            EMANUEL-STEFAN SZOKE | SC: 04-00-04 | AC: 11254040
+                        </p>
+                        <a href="#" id="whatsappLink" target="_blank" class="cta-btn" style="display:block; text-align:center; margin-top:10px; background:var(--success); border:none; color:black;">CONFIRM_WHATSAPP</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        function saveProjects() {
-            const projects = [];
-            document.querySelectorAll('.portfolio-card').forEach(card => {
-                projects.push({
-                    title: card.querySelector('h3').innerText,
-                    desc: card.querySelector('p').innerText,
-                    img: card.querySelector('.portfolio-img').src
-                });
-            });
-            localStorage.setItem('nikStefProjects', JSON.stringify(projects));
-        }
+    <div id="contactPage" class="page-content">
+        <div style="max-width:900px; margin:auto;">
+            <h2 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:3rem; text-align:center;">// UPLINK_CENTER_BRADFORD</h2>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem;">
+                <div class="order-section">
+                    <h3 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:1.5rem;">HQ_LOCATION</h3>
+                    <div class="map-container">
+                        <iframe width="100%" height="100%" frameborder="0" style="border:0; filter: invert(90%) hue-rotate(180deg) brightness(95%);" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150824.5804561845!2d-1.8845422830873676!3d53.80587215234555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48796634125f16f1%3A0x696f86c8f94d9755!2sBradford!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="order-section">
+                    <h3 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:1.5rem;">COMMS_CHANNELS</h3>
+                    <p style="margin-bottom:1rem;"><i class="fas fa-phone"></i> 07305378435</p>
+                    <p style="margin-bottom:2rem;"><i class="fas fa-envelope"></i> nikstef3dprint@gmail.com</p>
+                    <p style="color:#666; font-size:0.9rem;">Bradford, West Yorkshire, UK.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        function toggleEditMode() {
-            if (!isAdminMode) {
-                const pass = prompt("Enter Admin Password:");
-                if (pass === ADMIN_PASSWORD) {
-                    isAdminMode = true;
-                    updateAdminUI(true);
-                } else { alert("Access Denied."); }
-            } else {
-                isAdminMode = false;
-                updateAdminUI(false);
-                saveProjects();
-            }
-        }
+    <footer>// NIKSTEF_CYBERLAB // BRDFRD_UK // v2.0.26</footer>
 
-        function updateAdminUI(active) {
-            document.getElementById('editToggleBtn').innerHTML = active ? '<i class="fas fa-unlock"></i> Save & Lock' : '<i class="fas fa-lock"></i> Unlock Admin Edit';
-            document.getElementById('addProjectBtn').style.display = active ? 'inline-block' : 'none';
-            document.getElementById('exportBtn').style.display = active ? 'inline-block' : 'none';
-            document.querySelectorAll('.delete-btn, .edit-fields').forEach(e => e.style.display = active ? 'flex' : 'none');
-            
-            document.querySelectorAll('[contenteditable]').forEach(e => {
-                e.contentEditable = active;
-                if (active) {
-                    e.style.border = "1px dashed #ff4b5c";
-                    e.style.padding = "5px";
-                } else {
-                    e.style.border = "none";
-                    e.style.padding = "0";
-                }
-            });
-        }
+    <script>
+        const ADMIN_PASSWORD = "NikS123";
+        let isAdminMode = false;
+        let scene, camera, renderer, mesh, controls, currentVolume = 0;
 
-        function renderProject(title, desc, img) {
-            const grid = document.getElementById('projectGrid');
-            const card = document.createElement('div');
-            card.className = 'portfolio-card';
-            card.innerHTML = `
-                <button class="delete-btn" onclick="removeProject(this)">×</button>
-                <img src="${img}" class="portfolio-img">
-                <div class="portfolio-info">
-                    <h3 onblur="saveProjects()">${title}</h3>
-                    <p onblur="saveProjects()">${desc}</p>
-                    <div class="edit-fields">
-                        <input type="text" placeholder="Img URL" value="${img}" onchange="updateImg(this)">
-                    </div>
-                </div>`;
-            
-            // Set initial contenteditable state based on current mode
-            const h3 = card.querySelector('h3');
-            const p = card.querySelector('p');
-            h3.contentEditable = isAdminMode;
-            p.contentEditable = isAdminMode;
-            
-            grid.appendChild(card);
-        }
+        function showPage(pageId, type = null) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId + 'Page').classList.add('active');
+            if(type) { document.getElementById('serviceType').value = type; updateCalculator(); }
+            if(pageId === 'order') { setTimeout(init3D, 100); }
+            window.scrollTo(0,0);
+        }
 
-        function addProject() {
-            renderProject("New Project", "Description", "https://via.placeholder.com/500");
-            updateAdminUI(true);
-            saveProjects();
-        }
+        function init3D() {
+            const container = document.getElementById('canvas-container');
+            if (renderer) return;
+            scene = new THREE.Scene(); scene.background = new THREE.Color(0x0a0a0a);
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
+            camera.position.set(100, 100, 100);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+            const light = new THREE.DirectionalLight(0xffffff, 0.8); light.position.set(100, 100, 100); scene.add(light);
+            animate3D();
+        }
 
-        function removeProject(btn) { if(confirm('Delete?')) { btn.parentElement.remove(); saveProjects(); } }
-        function updateImg(input) { input.closest('.portfolio-card').querySelector('.portfolio-img').src = input.value; saveProjects(); }
-        function exportData() { prompt("Copy data for code update:", localStorage.getItem('nikStefProjects')); }
+        function animate3D() { requestAnimationFrame(animate3D); if(controls) controls.update(); if(renderer) renderer.render(scene, camera); }
 
-        // --- 2. NAVIGATION ---
-        function showPage(pageId, type = null) {
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId + 'Page').classList.add('active');
-            if(type) { document.getElementById('serviceType').value = type; updateCalculator(); }
-            window.scrollTo(0,0);
-        }
+        document.getElementById('stl_file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.name.toLowerCase().endsWith('.stl')) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    if (!renderer) init3D();
+                    if (mesh) scene.remove(mesh);
+                    const geometry = new THREE.STLLoader().parse(ev.target.result);
+                    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: document.getElementById('color_select').value, specular: 0x111111, shininess: 30 }));
+                    geometry.computeBoundingBox();
+                    const size = new THREE.Vector3(); geometry.boundingBox.getSize(size);
+                    document.getElementById('stl-dims').innerText = `${size.x.toFixed(1)} x ${size.y.toFixed(1)} x ${size.z.toFixed(1)}`;
+                    const center = new THREE.Vector3(); geometry.boundingBox.getCenter(center);
+                    mesh.position.sub(center); scene.add(mesh);
+                    camera.position.set(size.x*2, size.y*2, size.z*2);
+                    currentVolume = calculateVolume(geometry);
+                    document.getElementById('placeholder-msg').style.display = 'none';
+                    updateCalculator();
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        });
 
-        // --- 3. 3D & CALCULATOR ---
-        let scene, camera, renderer, mesh, currentVolume = 0;
-        const serviceType = document.getElementById('serviceType');
-        const sidesDropdown = document.getElementById('apparelPrintType');
+        function calculateVolume(geo) {
+            let vol = 0; const pos = geo.attributes.position;
+            for (let i = 0; i < pos.count; i += 3) {
+                const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
+                const v2 = new THREE.Vector3().fromBufferAttribute(pos, i+1);
+                const v3 = new THREE.Vector3().fromBufferAttribute(pos, i+2);
+                vol += v1.dot(v2.cross(v3)) / 6;
+            }
+            return Math.abs(vol) / 1000;
+        }
 
-        function init3D() {
-            const container = document.getElementById('canvas-container');
-            if (renderer) return;
-            scene = new THREE.Scene(); scene.background = new THREE.Color(0xeeeeee);
-            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(50, 50, 50);
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(renderer.domElement);
-            new THREE.OrbitControls(camera, renderer.domElement);
-            scene.add(new THREE.AmbientLight(0x404040, 2));
-            const light = new THREE.DirectionalLight(0xffffff, 1); light.position.set(1, 1, 1); scene.add(light);
-            renderLoop();
-        }
-        function renderLoop() { requestAnimationFrame(renderLoop); if(renderer) renderer.render(scene, camera); }
+        function updateSTLColor() { if(mesh) mesh.material.color.set(document.getElementById('color_select').value); }
 
-        function applyMulticolor(geometry, baseHex) {
-            geometry.computeBoundingBox();
-            const bbox = geometry.boundingBox;
-            const sizeZ = bbox.max.z - bbox.min.z || 1;
-            const count = geometry.attributes.position.count;
-            const colors = new Float32Array(count * 3);
-            const colorA = new THREE.Color(baseHex);
-            const colorB = new THREE.Color(0x111111);
-            for (let i = 0; i < count; i++) {
-                const z = geometry.attributes.position.getZ(i);
-                const percentage = (z - bbox.min.z) / sizeZ;
-                const mixed = colorA.clone().lerp(colorB, percentage * 0.4);
-                colors[i * 3] = mixed.r; colors[i * 3 + 1] = mixed.g; colors[i * 3 + 2] = mixed.b;
-            }
-            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        }
+        function updateCalculator() {
+            const type = document.getElementById('serviceType').value;
+            const qty = parseInt(document.getElementById('itemQuantity').value) || 1;
+            let subtotal = 0;
 
-        document.getElementById('stl_file').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            document.getElementById('fileNameDisplay').innerText = "Selected: " + file.name;
-            document.getElementById('fileNameDisplay').style.display = "block";
-            if (file.name.toLowerCase().endsWith('.stl')) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    if (!renderer) init3D();
-                    if (mesh) scene.remove(mesh);
-                    const geometry = new THREE.STLLoader().parse(ev.target.result);
-                    applyMulticolor(geometry, document.getElementById('color_select').value);
-                    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ vertexColors: true, shininess: 80 }));
-                    geometry.computeBoundingBox();
-                    const bbox = geometry.boundingBox;
-                    document.getElementById('stl-dims').innerText = `${(bbox.max.x-bbox.min.x).toFixed(1)}x${(bbox.max.y-bbox.min.y).toFixed(1)}x${(bbox.max.z-bbox.min.z).toFixed(1)}`;
-                    document.getElementById('dims-display').style.display = 'block';
-                    const center = new THREE.Vector3(); bbox.getCenter(center);
-                    mesh.position.sub(center); scene.add(mesh);
-                    currentVolume = (Math.abs(calculateVolume(geometry)) / 1000);
-                    document.getElementById('placeholder-msg').style.display = 'none';
-                    updateCalculator();
-                };
-                reader.readAsArrayBuffer(file);
-            }
-        });
+            document.getElementById('apparel-side-section').style.display = (type === 'apparel') ? 'block' : 'none';
+            document.getElementById('quantity-section').style.display = (type !== '3d') ? 'block' : 'none';
 
-        function calculateVolume(geo) {
-            let vol = 0; const pos = geo.attributes.position;
-            for (let i = 0; i < pos.count; i += 3) {
-                const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
-                const v2 = new THREE.Vector3().fromBufferAttribute(pos, i+1);
-                const v3 = new THREE.Vector3().fromBufferAttribute(pos, i+2);
-                vol += v1.dot(v2.cross(v3)) / 6;
-            }
-            return vol;
-        }
+            if (type === '3d') {
+                document.getElementById('3dOptions').style.display = 'block';
+                const mat = parseFloat(document.getElementById('material_select').value);
+                if (currentVolume > 0) subtotal = 5 + (currentVolume * mat * 10);
+            } else {
+                document.getElementById('3dOptions').style.display = 'none';
+                if (type === 'apparel') {
+                    subtotal = parseFloat(document.getElementById('apparelSides').value) * qty;
+                } else if (type === 'cards') {
+                    if (qty < 100) subtotal = qty * 0.30;
+                    else if (qty < 250) subtotal = qty * 0.20;
+                    else subtotal = qty * 0.15;
+                    if (subtotal < 15) subtotal = 15;
+                } else { subtotal = qty * 1.50; }
+            }
+            document.getElementById('displayPrice').innerText = "£" + (subtotal * 1.2).toFixed(2);
+        }
 
-        function updateCalculator() {
-            let subtotal = 0; let details = "";
-            const type = serviceType.value;
-            const qty = parseInt(document.getElementById('itemQuantity').value) || 1;
-            if (type === '3d') {
-                document.getElementById('3dOptions').style.display = 'block';
-                document.getElementById('apparelOptions').style.display = 'none';
-                subtotal = 5 + (currentVolume * parseFloat(document.getElementById('infill_select').value) * parseFloat(document.getElementById('material_select').value));
-                details = `3D: ${document.getElementById('material_select').selectedOptions[0].text}`;
-                if (mesh) { applyMulticolor(mesh.geometry, document.getElementById('color_select').value); mesh.geometry.attributes.color.needsUpdate = true; }
-            } else {
-                document.getElementById('3dOptions').style.display = 'none';
-                document.getElementById('apparelOptions').style.display = 'block';
-                if(sidesDropdown.dataset.mode !== type) {
-                    sidesDropdown.innerHTML = type === 'apparel' ? `<option value="10">Front Only (£10)</option><option value="20">Both Sides (£20)</option>` : `<option value="0.15">One Side (£0.15)</option><option value="0.30">Both Sides (£0.30)</option>`;
-                    sidesDropdown.dataset.mode = type;
-                }
-                subtotal = parseFloat(sidesDropdown.value) * qty;
-                details = `${type}: ${sidesDropdown.selectedOptions[0].text} x ${qty}`;
-            }
-            const vat = subtotal * 0.20; const total = subtotal + vat;
-            document.getElementById('displayPrice').innerText = total.toFixed(2);
-            document.getElementById('subPrice').innerText = subtotal.toFixed(2);
-            document.getElementById('vatAmount').innerText = vat.toFixed(2);
-            document.getElementById('hiddenPrice').value = "£" + total.toFixed(2);
-            document.getElementById('hiddenSpecs').value = details;
-        }
+        function loadProjects() {
+            const saved = localStorage.getItem('nikStefProjects');
+            let projects = saved ? JSON.parse(saved) : [
+                {"title":"Mechanical Reel Prototype","desc":"ABS Drive gear","img":"https://i.postimg.cc/YqsHcfg2/Whats-App-Image-2025-12-30-at-15-18-45.jpg"},
+                {"title":"ROBOTIC ARM","desc":"Industrial grade ABS","img":"https://i.postimg.cc/YSxD7MVr/Whats-App-Image-2025-12-31-at-19-50-15.jpg"},
+                {"title":"Branded Apparel","desc":"Studio Barber wear","img":"https://i.postimg.cc/KjCJfzKr/Whats-App-Image-2025-12-31-at-19-50-55.jpg"},
+                {"title":"Discount Cards","desc":"Premium 300g card","img":"https://i.postimg.cc/fRcB7MMj/Whats-App-Image-2025-12-31-at-19-52-10.jpg"}
+            ];
+            const grid = document.getElementById('projectGrid');
+            grid.innerHTML = '';
+            projects.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'portfolio-card';
+                card.innerHTML = `<button class="delete-btn" onclick="removeProject(this)">×</button><img src="${p.img}" class="portfolio-img"><div style="padding:1.5rem;"><h3 contenteditable="${isAdminMode}" onblur="saveProjects()" style="color:var(--accent); font-family:'Orbitron'; margin-bottom:8px;">${p.title}</h3><p contenteditable="${isAdminMode}" onblur="saveProjects()" style="color:#666; font-size:0.9rem;">${p.desc}</p></div>`;
+                grid.appendChild(card);
+            });
+        }
 
-        serviceType.addEventListener('change', updateCalculator);
-        document.querySelectorAll('select, #itemQuantity').forEach(el => el.addEventListener('change', updateCalculator));
+        function toggleEditMode() {
+            if (prompt("KEY:") === ADMIN_PASSWORD) {
+                isAdminMode = !isAdminMode;
+                loadProjects();
+                document.getElementById('addProjectBtn').style.display = isAdminMode ? 'inline-block' : 'none';
+                alert(isAdminMode ? "ADMIN_ENABLED" : "SYSTEM_LOCKED");
+            }
+        }
 
-        const form = document.getElementById('quoteForm');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('submitBtn').innerText = "Sending...";
-            fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
-            .then(res => { if (res.ok) { 
-                document.getElementById('payment-box').style.display = "block"; 
-                document.getElementById('submitBtn').innerText = "Sent ✅"; 
-                const waMsg = encodeURIComponent(`Hi NikStef, I've sent a request for ${document.getElementById('hiddenSpecs').value}. Total Estimate: £${document.getElementById('displayPrice').innerText}`);
-                document.getElementById('whatsappLink').href = `https://wa.me/447305378435?text=${waMsg}`;
-            } });
-        });
-    </script>
+        function saveProjects() {
+            const projs = Array.from(document.querySelectorAll('.portfolio-card')).map(c => ({ title: c.querySelector('h3').innerText, desc: c.querySelector('p').innerText, img: c.querySelector('.portfolio-img').src }));
+            localStorage.setItem('nikStefProjects', JSON.stringify(projs));
+        }
+
+        document.getElementById('quoteForm').onsubmit = function(e) {
+            e.preventDefault();
+            document.getElementById('submitBtn').innerText = "TRANSMITTING...";
+            fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } })
+            .then(res => { if(res.ok) { document.getElementById('payment-box').style.display = 'block'; document.getElementById('submitBtn').innerText = "SENT"; const total = document.getElementById('displayPrice').innerText; document.getElementById('whatsappLink').href = `https://wa.me/447305378435?text=Order Request: ${total}`; } });
+        };
+
+        window.onload = loadProjects;
+    </script>
 </body>
 </html>
+
