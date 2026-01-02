@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NikStef CyberLab | 3D Printing & Custom Branding Bradford</title>
+    <title>NikStef CyberLab | Professional 3D Printing & Branded Apparel Bradford</title>
     
     <link rel="icon" type="image/png" href="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg">
 
@@ -17,6 +17,7 @@
 
         :root { 
             --primary: #ff003c; 
+            --secondary: #0a0e14; 
             --accent: #00f3ff; 
             --bg-dark: #050505;
             --panel-bg: rgba(15, 15, 20, 0.98);
@@ -27,7 +28,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { background-color: var(--bg-dark); color: #f0f0f0; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-        /* CRT Overlay */
+        /* CRT Overlay Effect */
         body::before {
             content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
@@ -56,31 +57,38 @@
         .hero { padding: 10rem 5%; text-align: center; border-bottom: 2px solid var(--primary); background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1600') center/cover; }
         .hero h1 { font-family: 'Orbitron'; font-size: clamp(2.5rem, 6vw, 4.5rem); text-shadow: 0 0 30px var(--primary); margin-bottom: 1.5rem; }
 
-        /* Portfolio Cards */
+        /* Reviews */
+        .review-card { background: #111; border: 1px solid #222; padding: 1.5rem; border-radius: 4px; transition: 0.3s; text-align: left; }
+        .review-card:hover { border-color: var(--success); }
+
+        /* Portfolio */
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
         .portfolio-card { background: #0a0a0a; border: 1px solid #1a1a1a; transition: 0.4s; overflow: hidden; position: relative; }
         .portfolio-card:hover { border-color: var(--accent); transform: translateY(-5px); }
         .portfolio-img { width: 100%; height: 250px; object-fit: cover; }
-        
-        /* 3D Container & Pulse */
+        .delete-btn { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; border: none; width: 35px; height: 35px; display: none; cursor: pointer; z-index: 10; font-weight: bold; }
+
+        /* 3D/Calculator */
+        .order-section { background: var(--panel-bg); border: 1px solid var(--accent); padding: 2.5rem; border-radius: 4px; box-shadow: var(--glow-cyan); }
         #canvas-container { height: 400px; background: #000; border: 2px solid var(--accent); margin-bottom: 1rem; position: relative; }
         .live-pulse { animation: pulse-border 2.5s infinite ease-in-out; }
         @keyframes pulse-border { 0%, 100% { border-color: rgba(0, 243, 255, 0.3); } 50% { border-color: rgba(0, 243, 255, 1); } }
 
-        /* Order Panel */
-        .order-section { background: var(--panel-bg); border: 1px solid var(--accent); padding: 2.5rem; border-radius: 4px; box-shadow: var(--glow-cyan); }
         input, select, textarea { 
             background: #000 !important; color: #fff !important; border: 1px solid #333 !important; 
             padding: 14px !important; margin-bottom: 1rem !important; font-family: 'Rajdhani'; width: 100%;
         }
 
         #displayPrice { font-family: 'Orbitron'; font-size: 3.5rem; color: var(--primary); text-shadow: 0 0 15px var(--primary); }
-        .discount-badge { display: none; background: var(--success); color: #000; font-family: 'Orbitron'; font-size: 0.6rem; padding: 2px 8px; margin-left: 10px; border-radius: 2px; }
+        .status-badge { font-family: 'Orbitron'; font-size: 0.6rem; padding: 2px 8px; border-radius: 10px; margin-left: 10px; display: inline-block; vertical-align: middle; }
+        .status-instock { background: var(--success); color: #000; box-shadow: 0 0 10px var(--success); }
+        .status-low { background: #ffaa00; color: #000; }
+        .status-out { background: var(--primary); color: #fff; }
+
+        .address-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         /* Map */
-        .map-wrapper { height: 350px; border: 1px solid var(--accent); filter: grayscale(1) invert(1); opacity: 0.8; }
-
-        .delete-btn { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; border: none; width: 35px; height: 35px; display: none; cursor: pointer; z-index: 10; font-weight: bold; }
+        .map-container { height: 350px; border: 2px solid var(--accent); border-radius: 4px; overflow: hidden; filter: invert(90%) hue-rotate(180deg) brightness(95%); }
 
         footer { text-align: center; padding: 4rem; font-family: 'Orbitron'; color: #444; border-top: 1px solid #111; font-size: 0.8rem; }
     </style>
@@ -90,7 +98,7 @@
     <header>
         <div class="header-container">
             <a href="#" onclick="showPage('home')" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
-                <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="Logo" style="height:40px; border: 1px solid var(--accent);">
+                <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="Logo" style="height:45px; border: 1px solid var(--accent);">
                 <span class="logo-text">NikStef // CyberLab</span>
             </a>
             <nav class="nav-links">
@@ -98,40 +106,43 @@
                 <a onclick="showPage('order', '3d')">// FABRICATE</a>
                 <a onclick="showPage('contact')">// UPLINK</a>
             </nav>
-            <button onclick="showPage('order')" class="cta-btn">SYSTEM_QUOTE</button>
+            <button onclick="showPage('order')" class="cta-btn">GET_QUOTE</button>
         </div>
     </header>
 
     <div id="homePage" class="page-content active">
         <section class="hero">
-            <h1>FABRICATION_HUB</h1>
-            <p>> 3D_PRINTING // BRANDING // LOGISTICS_BRADFORD</p>
+            <h1>SYSTEM_CORE</h1>
+            <p>> 3D_FABRICATION // BRANDING // LOGISTICS_BRADFORD</p>
         </section>
 
-        <section style="padding: 4rem 0; text-align: center;">
-            <h2 style="font-family:'Orbitron'; color:var(--success); margin-bottom:3rem;">// CLIENT_FEEDBACK</h2>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:2rem;">
-                <div class="order-section" style="padding: 1.5rem;">
+        <section style="padding: 4rem 0;">
+            <h2 style="font-family:'Orbitron'; color:var(--success); text-align:center; margin-bottom:3rem;">// CLIENT_FEEDBACK</h2>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:2rem; max-width:1400px; margin:0 auto;">
+                <div class="review-card">
                     <div style="color:#ffaa00; margin-bottom:10px;">★★★★★</div>
-                    <p>"Flawless 3D execution. The mechanical parts fit perfectly."</p>
+                    <p>"Amazing quality on the 3D parts. Best custom service in Bradford."</p>
+                    <small style="color:var(--accent);">- Engineering Client</small>
                 </div>
-                <div class="order-section" style="padding: 1.5rem;">
+                <div class="review-card">
                     <div style="color:#ffaa00; margin-bottom:10px;">★★★★★</div>
-                    <p>"Quality branding. My team looks professional in the new gear."</p>
+                    <p>"Branded apparel looks perfect. The vinyl is very durable."</p>
+                    <small style="color:var(--accent);">- Studio Barber</small>
                 </div>
-                <div class="order-section" style="padding: 1.5rem;">
+                <div class="review-card">
                     <div style="color:#ffaa00; margin-bottom:10px;">★★★★★</div>
-                    <p>"Excellent local service in Bradford. Highly recommended."</p>
+                    <p>"Very professional and fast delivery. 10/10 service."</p>
+                    <small style="color:var(--accent);">- Local Business</small>
                 </div>
             </div>
         </section>
 
         <section class="portfolio">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
-                <h2 style="font-family:'Orbitron'; color:var(--accent);">// ARCHIVE_01</h2>
+                <h2 style="font-family:'Orbitron'; color:var(--accent);">// ARCHIVE_LOGS</h2>
                 <div>
-                    <button class="cta-btn" id="editToggleBtn" onclick="toggleEditMode()" style="font-size:0.7rem; padding:5px 15px;">ADMIN_ACCESS</button>
-                    <button class="cta-btn" id="addProjectBtn" style="display:none; margin-left:10px; font-size:0.7rem; padding:5px 15px;" onclick="addProject()">+ NEW_ENTRY</button>
+                    <button class="cta-btn" id="editToggleBtn" onclick="toggleEditMode()" style="font-size:0.7rem; padding:5px 15px;">ADMIN</button>
+                    <button class="cta-btn" id="addProjectBtn" style="display:none; margin-left:10px; font-size:0.7rem; padding:5px 15px;" onclick="addProject()">+ ENTRY</button>
                 </div>
             </div>
             <div class="portfolio-grid" id="projectGrid"></div>
@@ -140,7 +151,7 @@
 
     <div id="orderPage" class="page-content">
         <div class="order-section">
-            <div class="order-grid" style="display:grid; grid-template-columns: 1.3fr 1fr; gap:4rem;">
+            <div class="order-grid" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:4rem;">
                 <div>
                     <div id="canvas-container" class="live-pulse">
                         <div id="placeholder-msg" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:var(--accent); text-align:center;">
@@ -162,8 +173,8 @@
 
                     <div id="apparelOptions" style="display:none;">
                         <select id="apparelSides" name="print_sides" onchange="updateCalculator()">
-                            <option value="10">FRONT_ONLY (£10)</option>
-                            <option value="20">BOTH_SIDES (£20)</option>
+                            <option value="10">FRONT_ONLY (£10.00)</option>
+                            <option value="20">BOTH_SIDES (£20.00)</option>
                         </select>
                     </div>
 
@@ -173,7 +184,7 @@
 
                     <div id="3dOptions">
                         <select id="material_select" name="material" onchange="updateCalculator()">
-                            <option value="0.05">PLA (STANDARD)</option>
+                            <option value="0.05">PLA (EFFICIENCY)</option>
                             <option value="0.08">ABS (INDUSTRIAL)</option>
                             <option value="0.12">TPU (FLEXIBLE)</option>
                         </select>
@@ -188,24 +199,24 @@
 
                     <div style="margin: 2rem 0; padding: 1.5rem; border: 1px solid #1a1a1a; background: #000;">
                         <div id="displayPrice">£0.00</div>
-                        <span id="bulk-discount" class="discount-badge">BULK_DISCOUNT_APPLIED</span>
-                        <p style="color: #555; font-size: 0.8rem; margin-top: 10px;">CREDITS INC 20% VAT</p>
+                        <span id="stock-status" class="status-badge"></span>
+                        <p style="color: #666; font-size: 0.8rem; margin-top: 10px;">CREDITS INC 20% VAT</p>
                     </div>
 
                     <input type="text" name="customer_name" placeholder="FULL_NAME" required>
-                    <input type="email" name="customer_email" placeholder="EMAIL_UPLINK" required>
+                    <input type="email" name="customer_email" placeholder="UPLINK_MAIL" required>
                     
                     <div style="padding: 15px; border: 1px solid #1a1a1a; margin-bottom: 1rem;">
-                        <label style="color:var(--accent); font-family:'Orbitron'; font-size:0.6rem; display:block; margin-bottom:5px;">// SHIPPING_LOGISTICS</label>
-                        <input type="text" name="shipping_street" placeholder="STREET_ADDRESS" required>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                            <input type="text" name="shipping_city" placeholder="CITY" required>
-                            <input type="text" name="shipping_postcode" placeholder="POSTCODE" required>
+                        <label style="color:var(--accent); font-family:'Orbitron'; font-size:0.6rem; display:block; margin-bottom:5px;">SHIPPING_LOGISTICS:</label>
+                        <input type="text" name="street" placeholder="STREET_ADDRESS" required>
+                        <div class="address-row">
+                            <input type="text" name="city" placeholder="CITY" required>
+                            <input type="text" name="postcode" placeholder="POSTCODE" required>
                         </div>
                     </div>
 
                     <label class="cta-btn" style="display:block; text-align:center; margin-bottom:1.5rem; background: rgba(0,243,255,0.03);">
-                        <i class="fas fa-file-upload"></i> LOAD_BLUEPRINT
+                        <i class="fas fa-file-upload"></i> LOAD_STL_BLUEPRINT
                         <input type="file" id="stl_file" name="uploaded_file" style="display:none">
                     </label>
 
@@ -213,7 +224,7 @@
                     
                     <div id="payment-box" style="display:none; margin-top:1.5rem; border: 1px solid var(--success); padding:1.5rem; background: rgba(57, 255, 20, 0.05);">
                         <p style="font-family:monospace; font-size:0.85rem; color:var(--success);">
-                            BENEFICIARY: EMANUEL-STEFAN SZOKE<br>SC: 04-00-04 | AC: 11254040
+                            EMANUEL-STEFAN SZOKE | SC: 04-00-04 | AC: 11254040
                         </p>
                         <a href="#" id="whatsappLink" target="_blank" class="cta-btn" style="display:block; text-align:center; margin-top:10px; background:var(--success); border:none; color:black;">CONFIRM_WHATSAPP</a>
                     </div>
@@ -223,11 +234,11 @@
     </div>
 
     <div id="contactPage" class="page-content">
-        <div class="order-grid" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:3rem; max-width:1200px; margin:auto;">
+        <div style="max-width:1200px; margin:auto; display:grid; grid-template-columns: 1.2fr 1fr; gap:3rem;">
             <div class="order-section">
                 <h2 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:1.5rem;">// HQ_LOCATION</h2>
-                <div class="map-wrapper">
-                    <iframe width="100%" height="100%" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75476.96964516315!2d-1.8415777850937837!3d53.8016460455017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48796637e194884f%3A0x6d2c4819717651a7!2sBradford!5e0!3m2!1sen!2suk!4v1700000000000" allowfullscreen></iframe>
+                <div class="map-container">
+                    <iframe width="100%" height="100%" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75476.32688086055!2d-1.8415777771746272!3d53.79708766157158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1315516997d%3A0x286576b976a47a16!2sBradford!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk5" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="order-section">
@@ -246,6 +257,14 @@
         let isAdminMode = false;
         let scene, camera, renderer, mesh, controls, currentVolume = 0;
 
+        const stockData = {
+            "#7f8c8d": { text: "IN_STOCK", class: "status-instock" },
+            "#ffffff": { text: "IN_STOCK", class: "status-instock" },
+            "#00f3ff": { text: "LOW_STOCK", class: "status-low" },
+            "#ff003c": { text: "OUT_OF_STOCK", class: "status-out" },
+            "#222222": { text: "IN_STOCK", class: "status-instock" }
+        };
+
         function showPage(pageId, type = null) {
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId + 'Page').classList.add('active');
@@ -261,10 +280,11 @@
             camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
             camera.position.set(100, 100, 100);
             renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(container.clientWidth, container.clientHeight);
             container.appendChild(renderer.domElement);
             controls = new THREE.OrbitControls(camera, renderer.domElement);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
             const light = new THREE.DirectionalLight(0xffffff, 0.8); light.position.set(100, 100, 100); scene.add(light);
             animate3D();
         }
@@ -305,17 +325,81 @@
             return Math.abs(vol) / 1000;
         }
 
-        function updateSTLColor() { if(mesh) mesh.material.color.set(document.getElementById('color_select').value); }
+        function updateSTLColor() { 
+            const color = document.getElementById('color_select').value;
+            if(mesh) mesh.material.color.set(color);
+            const status = stockData[color];
+            const badge = document.getElementById('stock-status');
+            badge.innerText = status.text;
+            badge.className = "status-badge " + status.class;
+        }
 
         function updateCalculator() {
             const type = document.getElementById('serviceType').value;
             const qty = parseInt(document.getElementById('itemQuantity').value) || 1;
             let subtotal = 0;
-            
+
             document.getElementById('apparelOptions').style.display = (type === 'apparel') ? 'block' : 'none';
             document.getElementById('quantity-section').style.display = (type !== '3d') ? 'block' : 'none';
 
             if (type === '3d') {
                 document.getElementById('3dOptions').style.display = 'block';
                 const mat = parseFloat(document.getElementById('material_select').value);
-                if
+                if (currentVolume > 0) subtotal = 5 + (currentVolume * mat * 10);
+            } else {
+                document.getElementById('3dOptions').style.display = 'none';
+                if (type === 'apparel') {
+                    subtotal = parseFloat(document.getElementById('apparelSides').value) * qty;
+                } else if (type === 'cards') {
+                    subtotal = (qty < 250) ? qty * 0.20 : qty * 0.15;
+                    if (subtotal < 15) subtotal = 15;
+                } else { subtotal = qty * 1.50; }
+            }
+            document.getElementById('displayPrice').innerText = "£" + (subtotal * 1.2).toFixed(2);
+        }
+
+        function loadProjects() {
+            const saved = localStorage.getItem('nikStefProjects');
+            let projects = saved ? JSON.parse(saved) : [
+                {"title":"Mechanical Prototype","desc":"ABS High-precision component","img":"https://i.postimg.cc/YqsHcfg2/Whats-App-Image-2025-12-30-at-15-18-45.jpg"},
+                {"title":"Robotic Arm Section","desc":"Industrial grade fabrication","img":"https://i.postimg.cc/YSxD7MVr/Whats-App-Image-2025-12-31-at-19-50-15.jpg"},
+                {"title":"Studio Barber Apparel","desc":"Dual-sided custom mods","img":"https://i.postimg.cc/KjCJfzKr/Whats-App-Image-2025-12-31-at-19-50-55.jpg"},
+                {"title":"Premium Business Cards","desc":"300g premium cardstock","img":"https://i.postimg.cc/fRcB7MMj/Whats-App-Image-2025-12-31-at-19-52-10.jpg"}
+            ];
+            const grid = document.getElementById('projectGrid');
+            grid.innerHTML = '';
+            projects.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'portfolio-card';
+                card.innerHTML = `<button class="delete-btn" onclick="removeProject(this)">×</button><img src="${p.img}" class="portfolio-img"><div style="padding:1.5rem;"><h3 contenteditable="${isAdminMode}" onblur="saveProjects()" style="color:var(--accent);">${p.title}</h3><p contenteditable="${isAdminMode}" onblur="saveProjects()" style="color:#666; font-size:0.9rem;">${p.desc}</p></div>`;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleEditMode() {
+            if (prompt("ADMIN_KEY:") === ADMIN_PASSWORD) {
+                isAdminMode = !isAdminMode;
+                loadProjects();
+                document.getElementById('addProjectBtn').style.display = isAdminMode ? 'inline-block' : 'none';
+                document.querySelectorAll('.delete-btn').forEach(b => b.style.display = isAdminMode ? 'block' : 'none');
+                alert(isAdminMode ? "ADMIN_ENABLED" : "SYSTEM_LOCKED");
+            }
+        }
+
+        function saveProjects() {
+            const projs = Array.from(document.querySelectorAll('.portfolio-card')).map(c => ({ title: c.querySelector('h3').innerText, desc: c.querySelector('p').innerText, img: c.querySelector('.portfolio-img').src }));
+            localStorage.setItem('nikStefProjects', JSON.stringify(projs));
+        }
+
+        document.getElementById('quoteForm').onsubmit = function(e) {
+            e.preventDefault();
+            document.getElementById('submitBtn').innerText = "TRANSMITTING...";
+            fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } })
+            .then(res => { if(res.ok) { document.getElementById('payment-box').style.display = 'block'; document.getElementById('submitBtn').innerText = "SENT"; const total = document.getElementById('displayPrice').innerText; document.getElementById('whatsappLink').href = `https://wa.me/447305378435?text=Order Request: ${total}`; } });
+        };
+
+        window.onload = loadProjects;
+        updateSTLColor();
+    </script>
+</body>
+</html>
