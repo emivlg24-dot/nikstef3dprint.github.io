@@ -1,386 +1,321 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NikStef CyberLab | 3D Printing & Custom Branding Bradford</title>
-    
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NikStef CyberLab | 3D Printing & Custom Branding Bradford</title>
+    
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/STLLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
 
-        :root { 
-            --primary: #ff003c; 
-            --accent: #00f3ff; 
-            --bg-dark: #050505;
-            --panel-bg: rgba(15, 15, 20, 0.98);
-            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.4);
-            --success: #39ff14;
-        }
+        :root { 
+            --primary: #ff003c; 
+            --accent: #00f3ff; 
+            --bg-dark: #050505;
+            --panel-bg: rgba(15, 15, 20, 0.98);
+            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.4);
+            --success: #39ff14;
+        }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { background-color: var(--bg-dark); color: #f0f0f0; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: #f0f0f0; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-        /* Professional Header */
-        header { background: rgba(5, 5, 5, 0.95); padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--accent); backdrop-filter: blur(10px); }
-        .header-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-        .logo-text { font-family: 'Orbitron'; color: #fff; text-shadow: 2px 2px var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+        /* CRT Overlay */
+        body::before {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 9999; pointer-events: none; background-size: 100% 3px, 3px 100%;
+        }
 
-        .nav-links { display: flex; gap: 2.5rem; }
-        .nav-links a { font-family: 'Orbitron'; color: var(--accent); text-decoration: none; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
-        .nav-links a:hover { color: #fff; text-shadow: var(--glow-cyan); }
+        header { background: rgba(5, 5, 5, 0.95); padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--accent); backdrop-filter: blur(10px); }
+        .header-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo-text { font-family: 'Orbitron'; color: #fff; text-shadow: 2px 2px var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
 
-        .cta-btn { 
-            background: transparent; color: var(--accent); padding: 0.7rem 1.8rem; border: 1px solid var(--accent);
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); font-family: 'Orbitron'; font-weight: 700; cursor: pointer; transition: 0.3s;
-        }
-        .cta-btn:hover { background: var(--accent); color: #000; box-shadow: var(--glow-cyan); }
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-links a { font-family: 'Orbitron'; color: var(--accent); text-decoration: none; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; text-shadow: var(--glow-cyan); }
 
-        .page-content { display: none; padding: 4rem 5%; min-height: 85vh; animation: fadeIn 0.5s ease; }
-        .page-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        .cta-btn { 
+            background: transparent; color: var(--accent); padding: 0.7rem 1.8rem; border: 1px solid var(--accent);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); font-family: 'Orbitron'; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .cta-btn:hover { background: var(--accent); color: #000; box-shadow: var(--glow-cyan); }
 
-        /* Hero */
-        .hero { padding: 10rem 5%; text-align: center; border-bottom: 2px solid var(--primary); background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1600') center/cover; }
-        .hero h1 { font-family: 'Orbitron'; font-size: clamp(2rem, 6vw, 4rem); text-shadow: 0 0 30px var(--primary); margin-bottom: 1rem; }
+        .page-content { display: none; padding: 4rem 5%; min-height: 85vh; animation: fadeIn 0.5s ease; }
+        .page-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Review Section */
-        .reviews-section { padding: 4rem 0; background: rgba(255, 255, 255, 0.02); margin: 4rem 0; border-top: 1px solid #111; border-bottom: 1px solid #111; }
-        .review-card { background: #111; border: 1px solid #222; padding: 1.5rem; border-radius: 4px; transition: 0.3s; }
-        .review-card:hover { border-color: var(--success); }
-        .stars { color: #ffaa00; margin-bottom: 10px; }
+        /* Hero */
+        .hero { padding: 10rem 5%; text-align: center; border-bottom: 2px solid var(--primary); background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1600') center/cover; }
+        .hero h1 { font-family: 'Orbitron'; font-size: clamp(2.5rem, 6vw, 4.5rem); text-shadow: 0 0 30px var(--primary); margin-bottom: 1.5rem; }
 
-        /* Map Container */
-        .map-container { border: 2px solid var(--accent); border-radius: 4px; overflow: hidden; height: 350px; position: relative; box-shadow: var(--glow-cyan); }
+        /* Portfolio Cards */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
+        .portfolio-card { background: #0a0a0a; border: 1px solid #1a1a1a; transition: 0.4s; overflow: hidden; position: relative; }
+        .portfolio-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .portfolio-img { width: 100%; height: 250px; object-fit: cover; }
+        
+        /* 3D Container & Pulse */
+        #canvas-container { height: 400px; background: #000; border: 2px solid var(--accent); margin-bottom: 1rem; position: relative; }
+        .live-pulse { animation: pulse-border 2.5s infinite ease-in-out; }
+        @keyframes pulse-border { 0%, 100% { border-color: rgba(0, 243, 255, 0.3); } 50% { border-color: rgba(0, 243, 255, 1); } }
 
-        /* Portfolio */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
-        .portfolio-card { background: #0a0a0a; border: 1px solid #1a1a1a; transition: 0.4s; overflow: hidden; position: relative; }
-        .portfolio-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .portfolio-img { width: 100%; height: 250px; object-fit: cover; }
-        
-        .delete-btn { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; border: none; width: 35px; height: 35px; display: none; cursor: pointer; z-index: 10; font-weight: bold; }
+        /* Order Panel */
+        .order-section { background: var(--panel-bg); border: 1px solid var(--accent); padding: 2.5rem; border-radius: 4px; box-shadow: var(--glow-cyan); }
+        input, select, textarea { 
+            background: #000 !important; color: #fff !important; border: 1px solid #333 !important; 
+            padding: 14px !important; margin-bottom: 1rem !important; font-family: 'Rajdhani'; width: 100%;
+        }
 
-        #displayPrice { font-family: 'Orbitron'; font-size: 3.5rem; color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+        #displayPrice { font-family: 'Orbitron'; font-size: 3.5rem; color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+        .discount-badge { display: none; background: var(--success); color: #000; font-family: 'Orbitron'; font-size: 0.6rem; padding: 2px 8px; margin-left: 10px; border-radius: 2px; }
 
-        /* Order Panel */
-        .order-section { background: var(--panel-bg); border: 1px solid var(--accent); padding: 2rem; }
-        #canvas-container { height: 400px; background: #000; border: 2px solid var(--accent); margin-bottom: 1rem; position: relative; }
-        .live-pulse { animation: pulse-border 2.5s infinite; }
-        @keyframes pulse-border { 0%, 100% { border-color: rgba(0, 243, 255, 0.2); } 50% { border-color: rgba(0, 243, 255, 1); } }
+        /* Map */
+        .map-wrapper { height: 350px; border: 1px solid var(--accent); filter: grayscale(1) invert(1); opacity: 0.8; }
 
-        input, select, textarea { 
-            background: #000 !important; color: #fff !important; border: 1px solid #333 !important; 
-            padding: 12px !important; margin-bottom: 1rem !important; font-family: 'Rajdhani'; width: 100%;
-        }
+        .delete-btn { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; border: none; width: 35px; height: 35px; display: none; cursor: pointer; z-index: 10; font-weight: bold; }
 
-        footer { text-align: center; padding: 4rem; font-family: 'Orbitron'; color: #444; border-top: 1px solid #111; font-size: 0.8rem; }
-        
-        @media (max-width: 1024px) { .order-grid { display: block !important; } .nav-links { display: none; } }
-    </style>
+        footer { text-align: center; padding: 4rem; font-family: 'Orbitron'; color: #444; border-top: 1px solid #111; font-size: 0.8rem; }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <a href="#" onclick="showPage('home')" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
-                <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="Logo" style="height:40px; border: 1px solid var(--accent);">
-                <span class="logo-text">NikStef // CyberLab</span>
-            </a>
-            <nav class="nav-links">
-                <a onclick="showPage('home')">// HOME</a>
-                <a onclick="showPage('order', '3d')">// FABRICATE</a>
-                <a onclick="showPage('contact')">// UPLINK</a>
-            </nav>
-            <button onclick="showPage('order')" class="cta-btn">GET_QUOTE</button>
-        </div>
-    </header>
+    <header>
+        <div class="header-container">
+            <a href="#" onclick="showPage('home')" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
+                <img src="https://i.postimg.cc/JyvBwXfh/WhatsApp-Image-2025-12-18-at-12-04-31.jpg" alt="Logo" style="height:40px; border: 1px solid var(--accent);">
+                <span class="logo-text">NikStef // CyberLab</span>
+            </a>
+            <nav class="nav-links">
+                <a onclick="showPage('home')">// HOME</a>
+                <a onclick="showPage('order', '3d')">// FABRICATE</a>
+                <a onclick="showPage('contact')">// UPLINK</a>
+            </nav>
+            <button onclick="showPage('order')" class="cta-btn">SYSTEM_QUOTE</button>
+        </div>
+    </header>
 
-    <div id="homePage" class="page-content active">
-        <section class="hero">
-            <h1>FABRICATION_LOG</h1>
-            <p>> 3D_PRINTING // BRANDING // LOGISTICS_BRADFORD</p>
-        </section>
+    <div id="homePage" class="page-content active">
+        <section class="hero">
+            <h1>FABRICATION_HUB</h1>
+            <p>> 3D_PRINTING // BRANDING // LOGISTICS_BRADFORD</p>
+        </section>
 
-        <section class="reviews-section">
-            <h2 style="font-family:'Orbitron'; color:var(--success); text-align:center; margin-bottom:3rem;">// CLIENT_FEEDBACK_VERIFIED</h2>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:2rem; max-width:1400px; margin:0 auto; padding:0 5%;">
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Amazing quality on the robotic arm parts. Best 3D service in Bradford."</p>
-                    <small style="color:var(--accent);">- Industrial Client</small>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"The branded hoodies for my shop are perfect. Fast turnaround!"</p>
-                    <small style="color:var(--accent);">- Studio Barber</small>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Precise prototypes and great communication. Highly recommended."</p>
-                    <small style="color:var(--accent);">- Engineering Lead</small>
-                </div>
-            </div>
-        </section>
+        <section style="padding: 4rem 0; text-align: center;">
+            <h2 style="font-family:'Orbitron'; color:var(--success); margin-bottom:3rem;">// CLIENT_FEEDBACK</h2>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:2rem;">
+                <div class="order-section" style="padding: 1.5rem;">
+                    <div style="color:#ffaa00; margin-bottom:10px;">★★★★★</div>
+                    <p>"Flawless 3D execution. The mechanical parts fit perfectly."</p>
+                </div>
+                <div class="order-section" style="padding: 1.5rem;">
+                    <div style="color:#ffaa00; margin-bottom:10px;">★★★★★</div>
+                    <p>"Quality branding. My team looks professional in the new gear."</p>
+                </div>
+                <div class="order-section" style="padding: 1.5rem;">
+                    <div style="color:#ffaa00; margin-bottom:10px;">★★★★★</div>
+                    <p>"Excellent local service in Bradford. Highly recommended."</p>
+                </div>
+            </div>
+        </section>
 
-        <section class="portfolio">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
-                <h2 style="font-family:'Orbitron'; color:var(--accent);">// ARCHIVE_LOGS</h2>
-                <div>
-                    <button class="cta-btn" id="editToggleBtn" onclick="toggleEditMode()" style="font-size:0.7rem; padding:5px 15px;">ADMIN_ACCESS</button>
-                    <button class="cta-btn" id="addProjectBtn" style="display:none; margin-left:10px; font-size:0.7rem; padding:5px 15px;" onclick="addProject()">+ ADD_ENTRY</button>
-                </div>
-            </div>
-            <div class="portfolio-grid" id="projectGrid"></div>
-        </section>
-    </div>
+        <section class="portfolio">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                <h2 style="font-family:'Orbitron'; color:var(--accent);">// ARCHIVE_01</h2>
+                <div>
+                    <button class="cta-btn" id="editToggleBtn" onclick="toggleEditMode()" style="font-size:0.7rem; padding:5px 15px;">ADMIN_ACCESS</button>
+                    <button class="cta-btn" id="addProjectBtn" style="display:none; margin-left:10px; font-size:0.7rem; padding:5px 15px;" onclick="addProject()">+ NEW_ENTRY</button>
+                </div>
+            </div>
+            <div class="portfolio-grid" id="projectGrid"></div>
+        </section>
+    </div>
 
-    <div id="orderPage" class="page-content">
-        <div class="order-section">
-            <div class="order-grid" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:4rem;">
-                <div>
-                    <div id="canvas-container" class="live-pulse">
-                        <div id="placeholder-msg" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:var(--accent); text-align:center;">
-                            <i class="fas fa-satellite-dish fa-3x" style="margin-bottom:15px; opacity:0.5;"></i><br>READY_FOR_STL_UPLINK
-                        </div>
-                    </div>
-                    <div id="dims-display" style="color:var(--accent); border: 1px solid #1a1a1a; padding: 18px; font-family:'Orbitron'; font-size: 0.8rem; background: #000;">
-                        DATA_STREAM: <span id="stl-dims">0.0.0</span> MM
-                    </div>
-                </div>
+    <div id="orderPage" class="page-content">
+        <div class="order-section">
+            <div class="order-grid" style="display:grid; grid-template-columns: 1.3fr 1fr; gap:4rem;">
+                <div>
+                    <div id="canvas-container" class="live-pulse">
+                        <div id="placeholder-msg" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:var(--accent); text-align:center;">
+                            <i class="fas fa-satellite-dish fa-3x" style="margin-bottom:15px; opacity:0.5;"></i><br>READY_FOR_STL_UPLINK
+                        </div>
+                    </div>
+                    <div id="dims-display" style="color:var(--accent); border: 1px solid #1a1a1a; padding: 18px; font-family:'Orbitron'; font-size: 0.8rem; background: #000;">
+                        DATA_STREAM: <span id="stl-dims">0.0.0</span> MM
+                    </div>
+                </div>
 
-                <form id="quoteForm" action="https://getform.io/f/bqoqmqvb" method="POST" enctype="multipart/form-data">
-                    <select id="serviceType" name="service_type" onchange="updateCalculator()">
-                        <option value="3d">OBJECT_3D (STL_FABRICATION)</option>
-                        <option value="apparel">BRANDED_APPAREL (WEARABLES)</option>
-                        <option value="cards">BUSINESS_CARDS (BATCH)</option>
-                        <option value="envelopes">ENVELOPES / INVITES</option>
-                    </select>
+                <form id="quoteForm" action="https://getform.io/f/bqoqmqvb" method="POST" enctype="multipart/form-data">
+                    <select id="serviceType" name="service_type" onchange="updateCalculator()">
+                        <option value="3d">OBJECT_3D (STL_FABRICATION)</option>
+                        <option value="apparel">BRANDED_APPAREL (CLOTHING)</option>
+                        <option value="cards">BUSINESS_CARDS (BATCH)</option>
+                        <option value="envelopes">DL_ENVELOPES / INVITES</option>
+                    </select>
 
-                    <div id="apparel-side-section" style="display:none;">
-                        <select id="apparelSides" name="print_sides" onchange="updateCalculator()">
-                            <option value="10">FRONT_ONLY (£10)</option>
-                            <option value="20">BOTH_SIDES (£20)</option>
-                        </select>
-                    </div>
+                    <div id="apparelOptions" style="display:none;">
+                        <select id="apparelSides" name="print_sides" onchange="updateCalculator()">
+                            <option value="10">FRONT_ONLY (£10)</option>
+                            <option value="20">BOTH_SIDES (£20)</option>
+                        </select>
+                    </div>
 
-                    <div id="quantity-section" style="display:none;">
-                        <input type="number" id="itemQuantity" name="quantity" value="1" min="1" placeholder="QUANTITY" oninput="updateCalculator()">
-                    </div>
+                    <div id="quantity-section" style="display:none;">
+                        <input type="number" id="itemQuantity" name="quantity" value="1" min="1" placeholder="QUANTITY" oninput="updateCalculator()">
+                    </div>
 
-                    <div id="3dOptions">
-                        <select id="material_select" name="material" onchange="updateCalculator()">
-                            <option value="0.05">PLA (EFFICIENCY)</option>
-                            <option value="0.08">ABS (INDUSTRIAL)</option>
-                            <option value="0.12">TPU (FLEX)</option>
-                        </select>
-                        <select id="color_select" name="color" onchange="updateSTLColor()">
-                            <option value="#7f8c8d">MATTE_GRAY</option>
-                            <option value="#ffffff">PURE_WHITE</option>
-                            <option value="#00f3ff">NEON_BLUE</option>
-                            <option value="#ff003c">NEON_PINK</option>
-                            <option value="#222222">STEALTH_BLACK</option>
-                        </select>
-                    </div>
+                    <div id="3dOptions">
+                        <select id="material_select" name="material" onchange="updateCalculator()">
+                            <option value="0.05">PLA (STANDARD)</option>
+                            <option value="0.08">ABS (INDUSTRIAL)</option>
+                            <option value="0.12">TPU (FLEXIBLE)</option>
+                        </select>
+                        <select id="color_select" name="color" onchange="updateSTLColor()">
+                            <option value="#ffffff">PURE_WHITE</option>
+                            <option value="#7f8c8d">MATTE_GRAY</option>
+                            <option value="#00f3ff">NEON_BLUE</option>
+                            <option value="#ff003c">NEON_PINK</option>
+                            <option value="#222222">STEALTH_BLACK</option>
+                        </select>
+                    </div>
 
-                    <div style="margin: 2rem 0; padding: 1.5rem; border: 1px solid #1a1a1a; background: #000;">
-                        <div id="displayPrice">£0.00</div>
-                        <p style="color: #666; font-size: 0.8rem; margin-top: 10px;">CREDITS INC 20% VAT</p>
-                    </div>
+                    <div style="margin: 2rem 0; padding: 1.5rem; border: 1px solid #1a1a1a; background: #000;">
+                        <div id="displayPrice">£0.00</div>
+                        <span id="bulk-discount" class="discount-badge">BULK_DISCOUNT_APPLIED</span>
+                        <p style="color: #555; font-size: 0.8rem; margin-top: 10px;">CREDITS INC 20% VAT</p>
+                    </div>
 
-                    <input type="text" name="customer_name" placeholder="FULL_NAME" required>
-                    <input type="email" name="customer_email" placeholder="EMAIL_UPLINK" required>
-                    
-                    <div style="padding: 15px; border: 1px solid #1a1a1a; margin-bottom: 1rem;">
-                        <label style="color:var(--accent); font-family:'Orbitron'; font-size:0.6rem; display:block; margin-bottom:5px;">SHIPPING_LOGISTICS:</label>
-                        <input type="text" name="street" placeholder="STREET_ADDRESS" required>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                            <input type="text" name="city" placeholder="CITY" required>
-                            <input type="text" name="postcode" placeholder="POSTCODE" required>
-                        </div>
-                    </div>
+                    <input type="text" name="customer_name" placeholder="FULL_NAME" required>
+                    <input type="email" name="customer_email" placeholder="EMAIL_UPLINK" required>
+                    
+                    <div style="padding: 15px; border: 1px solid #1a1a1a; margin-bottom: 1rem;">
+                        <label style="color:var(--accent); font-family:'Orbitron'; font-size:0.6rem; display:block; margin-bottom:5px;">// SHIPPING_LOGISTICS</label>
+                        <input type="text" name="shipping_street" placeholder="STREET_ADDRESS" required>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <input type="text" name="shipping_city" placeholder="CITY" required>
+                            <input type="text" name="shipping_postcode" placeholder="POSTCODE" required>
+                        </div>
+                    </div>
 
-                    <label class="cta-btn" style="display:block; text-align:center; margin-bottom:1.5rem; background: rgba(0,243,255,0.03);">
-                        <i class="fas fa-file-upload"></i> LOAD_STL_BLUEPRINT
-                        <input type="file" id="stl_file" name="uploaded_file" style="display:none">
-                    </label>
+                    <label class="cta-btn" style="display:block; text-align:center; margin-bottom:1.5rem; background: rgba(0,243,255,0.03);">
+                        <i class="fas fa-file-upload"></i> LOAD_BLUEPRINT
+                        <input type="file" id="stl_file" name="uploaded_file" style="display:none">
+                    </label>
 
-                    <button type="submit" id="submitBtn" class="cta-btn" style="width:100%; background:var(--primary); color:white; border:none; height: 55px;">EXECUTE_UPLINK</button>
-                    
-                    <div id="payment-box" style="display:none; margin-top:1.5rem; border: 1px solid var(--success); padding:1.5rem; background: rgba(57, 255, 20, 0.05);">
-                        <p style="font-family:monospace; font-size:0.85rem; color:var(--success);">
-                            EMANUEL-STEFAN SZOKE | SC: 04-00-04 | AC: 11254040
-                        </p>
-                        <a href="#" id="whatsappLink" target="_blank" class="cta-btn" style="display:block; text-align:center; margin-top:10px; background:var(--success); border:none; color:black;">CONFIRM_WHATSAPP</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <button type="submit" id="submitBtn" class="cta-btn" style="width:100%; background:var(--primary); color:white; border:none; height: 55px;">EXECUTE_UPLINK</button>
+                    
+                    <div id="payment-box" style="display:none; margin-top:1.5rem; border: 1px solid var(--success); padding:1.5rem; background: rgba(57, 255, 20, 0.05);">
+                        <p style="font-family:monospace; font-size:0.85rem; color:var(--success);">
+                            BENEFICIARY: EMANUEL-STEFAN SZOKE<br>SC: 04-00-04 | AC: 11254040
+                        </p>
+                        <a href="#" id="whatsappLink" target="_blank" class="cta-btn" style="display:block; text-align:center; margin-top:10px; background:var(--success); border:none; color:black;">CONFIRM_WHATSAPP</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <div id="contactPage" class="page-content">
-        <div style="max-width:900px; margin:auto;">
-            <h2 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:3rem; text-align:center;">// UPLINK_CENTER_BRADFORD</h2>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem;">
-                <div class="order-section">
-                    <h3 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:1.5rem;">HQ_LOCATION</h3>
-                    <div class="map-container">
-                        <iframe width="100%" height="100%" frameborder="0" style="border:0; filter: invert(90%) hue-rotate(180deg) brightness(95%);" 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150824.5804561845!2d-1.8845422830873676!3d53.80587215234555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48796634125f16f1%3A0x696f86c8f94d9755!2sBradford!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="order-section">
-                    <h3 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:1.5rem;">COMMS_CHANNELS</h3>
-                    <p style="margin-bottom:1rem;"><i class="fas fa-phone"></i> 07305378435</p>
-                    <p style="margin-bottom:2rem;"><i class="fas fa-envelope"></i> nikstef3dprint@gmail.com</p>
-                    <p style="color:#666; font-size:0.9rem;">Bradford, West Yorkshire, UK.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="contactPage" class="page-content">
+        <div class="order-grid" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:3rem; max-width:1200px; margin:auto;">
+            <div class="order-section">
+                <h2 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:1.5rem;">// HQ_LOCATION</h2>
+                <div class="map-wrapper">
+                    <iframe width="100%" height="100%" frameborder="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75476.96964516315!2d-1.8415777850937837!3d53.8016460455017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48796637e194884f%3A0x6d2c4819717651a7!2sBradford!5e0!3m2!1sen!2suk!4v1700000000000" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="order-section">
+                <h2 style="font-family:'Orbitron'; color:var(--accent); margin-bottom:1.5rem;">// COMMS_CHANNELS</h2>
+                <p style="font-size:1.2rem; margin-bottom:1rem;"><i class="fas fa-phone"></i> 07305378435</p>
+                <p style="font-size:1.2rem; margin-bottom:1rem;"><i class="fas fa-envelope"></i> nikstef3dprint@gmail.com</p>
+                <p style="color:#666;">NikStef CyberLab, Bradford, UK.</p>
+            </div>
+        </div>
+    </div>
 
-    <footer>// NIKSTEF_CYBERLAB // BRDFRD_UK // v2.0.26</footer>
+    <footer>// NIKSTEF_CYBERLAB // BRDFRD_UK // v2.0.26</footer>
 
-    <script>
-        const ADMIN_PASSWORD = "NikS123";
-        let isAdminMode = false;
-        let scene, camera, renderer, mesh, controls, currentVolume = 0;
+    <script>
+        const ADMIN_PASSWORD = "NikS123";
+        let isAdminMode = false;
+        let scene, camera, renderer, mesh, controls, currentVolume = 0;
 
-        function showPage(pageId, type = null) {
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId + 'Page').classList.add('active');
-            if(type) { document.getElementById('serviceType').value = type; updateCalculator(); }
-            if(pageId === 'order') { setTimeout(init3D, 100); }
-            window.scrollTo(0,0);
-        }
+        function showPage(pageId, type = null) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId + 'Page').classList.add('active');
+            if(type) { document.getElementById('serviceType').value = type; updateCalculator(); }
+            if(pageId === 'order') { setTimeout(init3D, 100); }
+            window.scrollTo(0,0);
+        }
 
-        function init3D() {
-            const container = document.getElementById('canvas-container');
-            if (renderer) return;
-            scene = new THREE.Scene(); scene.background = new THREE.Color(0x0a0a0a);
-            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
-            camera.position.set(100, 100, 100);
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(renderer.domElement);
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-            const light = new THREE.DirectionalLight(0xffffff, 0.8); light.position.set(100, 100, 100); scene.add(light);
-            animate3D();
-        }
+        function init3D() {
+            const container = document.getElementById('canvas-container');
+            if (renderer) return;
+            scene = new THREE.Scene(); scene.background = new THREE.Color(0x0a0a0a);
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
+            camera.position.set(100, 100, 100);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+            const light = new THREE.DirectionalLight(0xffffff, 0.8); light.position.set(100, 100, 100); scene.add(light);
+            animate3D();
+        }
 
-        function animate3D() { requestAnimationFrame(animate3D); if(controls) controls.update(); if(renderer) renderer.render(scene, camera); }
+        function animate3D() { requestAnimationFrame(animate3D); if(controls) controls.update(); if(renderer) renderer.render(scene, camera); }
 
-        document.getElementById('stl_file').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && file.name.toLowerCase().endsWith('.stl')) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    if (!renderer) init3D();
-                    if (mesh) scene.remove(mesh);
-                    const geometry = new THREE.STLLoader().parse(ev.target.result);
-                    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: document.getElementById('color_select').value, specular: 0x111111, shininess: 30 }));
-                    geometry.computeBoundingBox();
-                    const size = new THREE.Vector3(); geometry.boundingBox.getSize(size);
-                    document.getElementById('stl-dims').innerText = `${size.x.toFixed(1)} x ${size.y.toFixed(1)} x ${size.z.toFixed(1)}`;
-                    const center = new THREE.Vector3(); geometry.boundingBox.getCenter(center);
-                    mesh.position.sub(center); scene.add(mesh);
-                    camera.position.set(size.x*2, size.y*2, size.z*2);
-                    currentVolume = calculateVolume(geometry);
-                    document.getElementById('placeholder-msg').style.display = 'none';
-                    updateCalculator();
-                };
-                reader.readAsArrayBuffer(file);
-            }
-        });
+        document.getElementById('stl_file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.name.toLowerCase().endsWith('.stl')) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    if (!renderer) init3D();
+                    if (mesh) scene.remove(mesh);
+                    const geometry = new THREE.STLLoader().parse(ev.target.result);
+                    mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ color: document.getElementById('color_select').value, specular: 0x111111, shininess: 30 }));
+                    geometry.computeBoundingBox();
+                    const size = new THREE.Vector3(); geometry.boundingBox.getSize(size);
+                    document.getElementById('stl-dims').innerText = `${size.x.toFixed(1)} x ${size.y.toFixed(1)} x ${size.z.toFixed(1)}`;
+                    const center = new THREE.Vector3(); geometry.boundingBox.getCenter(center);
+                    mesh.position.sub(center); scene.add(mesh);
+                    camera.position.set(size.x*2, size.y*2, size.z*2);
+                    currentVolume = calculateVolume(geometry);
+                    document.getElementById('placeholder-msg').style.display = 'none';
+                    updateCalculator();
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        });
 
-        function calculateVolume(geo) {
-            let vol = 0; const pos = geo.attributes.position;
-            for (let i = 0; i < pos.count; i += 3) {
-                const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
-                const v2 = new THREE.Vector3().fromBufferAttribute(pos, i+1);
-                const v3 = new THREE.Vector3().fromBufferAttribute(pos, i+2);
-                vol += v1.dot(v2.cross(v3)) / 6;
-            }
-            return Math.abs(vol) / 1000;
-        }
+        function calculateVolume(geo) {
+            let vol = 0; const pos = geo.attributes.position;
+            for (let i = 0; i < pos.count; i += 3) {
+                const v1 = new THREE.Vector3().fromBufferAttribute(pos, i);
+                const v2 = new THREE.Vector3().fromBufferAttribute(pos, i+1);
+                const v3 = new THREE.Vector3().fromBufferAttribute(pos, i+2);
+                vol += v1.dot(v2.cross(v3)) / 6;
+            }
+            return Math.abs(vol) / 1000;
+        }
 
-        function updateSTLColor() { if(mesh) mesh.material.color.set(document.getElementById('color_select').value); }
+        function updateSTLColor() { if(mesh) mesh.material.color.set(document.getElementById('color_select').value); }
 
-        function updateCalculator() {
-            const type = document.getElementById('serviceType').value;
-            const qty = parseInt(document.getElementById('itemQuantity').value) || 1;
-            let subtotal = 0;
+        function updateCalculator() {
+            const type = document.getElementById('serviceType').value;
+            const qty = parseInt(document.getElementById('itemQuantity').value) || 1;
+            let subtotal = 0;
+            
+            document.getElementById('apparelOptions').style.display = (type === 'apparel') ? 'block' : 'none';
+            document.getElementById('quantity-section').style.display = (type !== '3d') ? 'block' : 'none';
 
-            document.getElementById('apparel-side-section').style.display = (type === 'apparel') ? 'block' : 'none';
-            document.getElementById('quantity-section').style.display = (type !== '3d') ? 'block' : 'none';
-
-            if (type === '3d') {
-                document.getElementById('3dOptions').style.display = 'block';
-                const mat = parseFloat(document.getElementById('material_select').value);
-                if (currentVolume > 0) subtotal = 5 + (currentVolume * mat * 10);
-            } else {
-                document.getElementById('3dOptions').style.display = 'none';
-                if (type === 'apparel') {
-                    subtotal = parseFloat(document.getElementById('apparelSides').value) * qty;
-                } else if (type === 'cards') {
-                    if (qty < 100) subtotal = qty * 0.30;
-                    else if (qty < 250) subtotal = qty * 0.20;
-                    else subtotal = qty * 0.15;
-                    if (subtotal < 15) subtotal = 15;
-                } else { subtotal = qty * 1.50; }
-            }
-            document.getElementById('displayPrice').innerText = "£" + (subtotal * 1.2).toFixed(2);
-        }
-
-        function loadProjects() {
-            const saved = localStorage.getItem('nikStefProjects');
-            let projects = saved ? JSON.parse(saved) : [
-                {"title":"Mechanical Reel Prototype","desc":"ABS Drive gear","img":"https://i.postimg.cc/YqsHcfg2/Whats-App-Image-2025-12-30-at-15-18-45.jpg"},
-                {"title":"ROBOTIC ARM","desc":"Industrial grade ABS","img":"https://i.postimg.cc/YSxD7MVr/Whats-App-Image-2025-12-31-at-19-50-15.jpg"},
-                {"title":"Branded Apparel","desc":"Studio Barber wear","img":"https://i.postimg.cc/KjCJfzKr/Whats-App-Image-2025-12-31-at-19-50-55.jpg"},
-                {"title":"Discount Cards","desc":"Premium 300g card","img":"https://i.postimg.cc/fRcB7MMj/Whats-App-Image-2025-12-31-at-19-52-10.jpg"}
-            ];
-            const grid = document.getElementById('projectGrid');
-            grid.innerHTML = '';
-            projects.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'portfolio-card';
-                card.innerHTML = `<button class="delete-btn" onclick="removeProject(this)">×</button><img src="${p.img}" class="portfolio-img"><div style="padding:1.5rem;"><h3 contenteditable="${isAdminMode}" onblur="saveProjects()" style="color:var(--accent); font-family:'Orbitron'; margin-bottom:8px;">${p.title}</h3><p contenteditable="${isAdminMode}" onblur="saveProjects()" style="color:#666; font-size:0.9rem;">${p.desc}</p></div>`;
-                grid.appendChild(card);
-            });
-        }
-
-        function toggleEditMode() {
-            if (prompt("KEY:") === ADMIN_PASSWORD) {
-                isAdminMode = !isAdminMode;
-                loadProjects();
-                document.getElementById('addProjectBtn').style.display = isAdminMode ? 'inline-block' : 'none';
-                alert(isAdminMode ? "ADMIN_ENABLED" : "SYSTEM_LOCKED");
-            }
-        }
-
-        function saveProjects() {
-            const projs = Array.from(document.querySelectorAll('.portfolio-card')).map(c => ({ title: c.querySelector('h3').innerText, desc: c.querySelector('p').innerText, img: c.querySelector('.portfolio-img').src }));
-            localStorage.setItem('nikStefProjects', JSON.stringify(projs));
-        }
-
-        document.getElementById('quoteForm').onsubmit = function(e) {
-            e.preventDefault();
-            document.getElementById('submitBtn').innerText = "TRANSMITTING...";
-            fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } })
-            .then(res => { if(res.ok) { document.getElementById('payment-box').style.display = 'block'; document.getElementById('submitBtn').innerText = "SENT"; const total = document.getElementById('displayPrice').innerText; document.getElementById('whatsappLink').href = `https://wa.me/447305378435?text=Order Request: ${total}`; } });
-        };
-
-        window.onload = loadProjects;
-    </script>
-</body>
-</html>
-
+            if (type === '3d') {
+                document.getElementById('3dOptions').style.display = 'block';
+                const mat = parseFloat(document.getElementById('material_select').value);
+                if
