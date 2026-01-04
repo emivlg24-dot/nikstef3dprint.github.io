@@ -47,6 +47,10 @@
         .admin-input, .admin-select { padding: 12px; border: 1px solid #ddd; border-radius: 10px; flex: 1; min-width: 150px; font-family: inherit; }
         .deploy-btn { background: #28a745; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; cursor: pointer; }
 
+        .export-section { width: 100%; margin-top: 20px; padding: 15px; background: white; border: 1px solid #0066ff; border-radius: 12px; }
+        .export-section p { font-size: 0.8rem; font-weight: 700; color: #0066ff; margin-bottom: 10px; }
+        .code-display { background: #f5f5f7; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 0.7rem; overflow-x: auto; white-space: nowrap; margin-bottom: 10px; border: 1px solid #ddd; }
+
         .controls-row { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; background: #fff; border-bottom: 1px solid var(--border); }
         .search-box { position: relative; width: 300px; }
         .search-box input { width: 100%; padding: 10px 40px 10px 15px; border-radius: 20px; border: 1px solid var(--border); font-family: inherit; }
@@ -60,7 +64,7 @@
         .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-color: var(--accent); }
 
         .gallery-container { width: 100%; height: 250px; position: relative; overflow: hidden; border-radius: 16px; margin-bottom: 15px; background: #f9f9f9; }
-        .gallery-slider { display: flex; transition: transform 0.4s ease; height: 100%; }
+        .gallery-slider { display: flex; transition: transform 0.4s ease; height: 100%; width: 100%; }
         .gallery-slider img { width: 100%; height: 100%; object-fit: contain; flex-shrink: 0; }
         .gal-nav { position: absolute; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ddd; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 5; }
         .gal-prev { left: 8px; } .gal-next { right: 8px; }
@@ -72,21 +76,14 @@
         .edit-tool { background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; }
         .del-tool { background: #ff3b30; color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; }
 
-        /* --- REVIEWS --- */
         .reviews-section { background: var(--gray); padding: 80px 5%; margin-top: 40px; }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1400px; margin: auto; }
         .review-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .stars { color: var(--star); margin-bottom: 15px; }
-        .review-text { font-style: italic; color: #444; margin-bottom: 20px; line-height: 1.6; }
-        .review-author { font-weight: 700; font-size: 0.9rem; }
 
-        #cart-sidebar { 
-            position: fixed; right: -100%; top: 0; width: 450px; height: 100%; 
-            background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
-            z-index: 2000; padding: 30px; transition: 0.5s; overflow-y: auto;
-        }
+        #cart-sidebar { position: fixed; right: -100%; top: 0; width: 450px; height: 100%; background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 2000; padding: 30px; transition: 0.5s; overflow-y: auto; }
         #cart-sidebar.active { right: 0; }
-        .cart-item { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+        .cart-item { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;}
         
         .pricing-summary { margin-top: 20px; border-top: 2px solid var(--gray); padding-top: 15px; }
         .price-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; }
@@ -97,10 +94,8 @@
         .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.9rem; }
 
-        .bank-details-box { background: #f0f7ff; border: 1px solid #cce4ff; padding: 15px; border-radius: 10px; margin-bottom: 15px; display: none; }
-        .bank-details-box p { font-size: 0.85rem; line-height: 1.6; }
-
-        .checkout-btn { width: 100%; padding: 18px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 15px; }
+        .bank-details-box { background: #f0f7ff; border: 1px solid #cce4ff; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .checkout-btn { width: 100%; padding: 18px; background: #25D366; color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 15px; }
 
         footer { background: var(--dark); color: white; padding: 60px 5%; margin-top: 80px; }
         @media (max-width: 500px) { #cart-sidebar { width: 100%; } }
@@ -128,10 +123,17 @@
             <option value="3D Printing">Custom 3D Print</option>
             <option value="Apparel">Custom Apparel</option>
         </select>
-        <input type="text" id="p-img" class="admin-input" placeholder="Img links">
+        <input type="text" id="p-img" class="admin-input" placeholder="Img links (comma separated)">
         <input type="text" id="p-desc" class="admin-input" placeholder="Desc">
-        <button class="deploy-btn" onclick="saveProduct()">SAVE</button>
+        <button class="deploy-btn" id="save-btn" onclick="saveProduct()">SAVE</button>
         <button onclick="resetAdmin()" style="border:none; background:#666; color:white; padding:10px; border-radius:10px; cursor:pointer">X</button>
+    </div>
+
+    <div class="export-section">
+        <p><i class="fas fa-database"></i> DIGITAL DATABASE BACKUP</p>
+        <div class="code-display" id="db-code">Loading database...</div>
+        <button class="deploy-btn" style="background:var(--accent);" onclick="copyDB()">COPY DATABASE CODE</button>
+        <small style="display:block; margin-top:5px; color:#666;">Paste this code into your HTML file to sync all devices.</small>
     </div>
 </section>
 
@@ -147,12 +149,12 @@
     <div class="reviews-grid">
         <div class="review-card">
             <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="review-text">"Amazing quality on the 3D parts. Best custom service in Bradford. Very professional and fast delivery. 10/10 service."</p>
+            <p>"Amazing quality on the 3D parts. Best custom service in Bradford."</p>
             <div class="review-author">— Engineering Client</div>
         </div>
         <div class="review-card">
             <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="review-text">"Branded apparel looks perfect. The vinyl is very durable and survived many washes. Exceptional print quality."</p>
+            <p>"Branded apparel looks perfect. Fast delivery."</p>
             <div class="review-author">— Studio Barber</div>
         </div>
     </div>
@@ -160,53 +162,42 @@
 
 <div id="cart-sidebar">
     <h2 style="display: flex; justify-content: space-between;">Manifest <i class="fas fa-times" onclick="toggleCart()" style="cursor: pointer;"></i></h2>
-    <div id="cart-items-list"></div>
+    <div id="cart-items-list" style="margin-top: 15px;"></div>
     
     <div class="pricing-summary">
-        <div class="price-line"><span>Subtotal:</span> <span>£<span id="sub-val">0.00</span></span></div>
+        <div class="price-line"><span>Net Subtotal:</span> <span>£<span id="sub-val">0.00</span></span></div>
         <div class="price-line"><span>VAT (20%):</span> <span>£<span id="vat-val">0.00</span></span></div>
         <div class="price-line"><span>Delivery:</span> <span>£<span id="del-val">0.00</span></span></div>
         <div class="price-line grand-total"><span>Total:</span> <span>£<span id="grand-val">0.00</span></span></div>
     </div>
 
     <div class="checkout-form">
-        <h3>1. Payment Method</h3>
         <div class="form-group">
+            <label>Payment Method</label>
             <select id="payment-method" onchange="toggleBankDetails()">
                 <option value="Bank Transfer">Direct Bank Transfer</option>
                 <option value="Cash">Cash on Collection (Bradford)</option>
             </select>
         </div>
-
-        <div id="bank-box" class="bank-details-box" style="display: block;">
-            <p><strong>Bank:</strong> Barclays<br>
-               <strong>Name:</strong> E-S SZOKE<br>
-               <strong>Sort Code:</strong> 04-00-04<br>
-               <strong>Account:</strong> 11254040
-            </p>
+        <div id="bank-box" class="bank-details-box">
+            <p><strong>Bank:</strong> MONZO | <strong>Acc:</strong> 11254040 | <strong>Sort:</strong> 04-00-04</p>
         </div>
-
-        <h3>2. Contact Details</h3>
-        <div class="form-group"><label>Full Name</label><input type="text" id="cust-name"></div>
-        <div class="form-group"><label>Email Address</label><input type="email" id="cust-email"></div>
-        <div class="form-group"><label>Address (Skip for collection)</label><textarea id="cust-address" rows="2"></textarea></div>
+        <div class="form-group"><label>Name</label><input type="text" id="cust-name"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="cust-email"></div>
+        <div class="form-group"><label>Address</label><textarea id="cust-address" rows="2"></textarea></div>
         <div class="form-group"><label>Phone</label><input type="text" id="cust-phone"></div>
-        <div class="form-group"><label>Order Notes</label><textarea id="cust-notes" rows="2"></textarea></div>
-        
-        <button class="checkout-btn" onclick="checkout()">PLACE ORDER VIA WHATSAPP</button>
+        <button class="checkout-btn" onclick="checkout()"><i class="fab fa-whatsapp"></i> PLACE ORDER VIA WHATSAPP</button>
     </div>
 </div>
 
 <footer>
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:40px;">
-        <div><h4>NikStef Lab</h4><p>Bradford, UK</p></div>
-        <div><h4>Payment Info</h4><p>04-00-04 | 11254040</p></div>
-    </div>
+    <div style="text-align:center;"><h4>NikStef Lab | Bradford, UK</h4></div>
 </footer>
 
 <script>
+    // --- MASTER DATABASE ---
     let products = JSON.parse(localStorage.getItem('nikstef_v8_db')) || [
-        { name: "NikStef Sticker Pack", price: 5.99, category: "Standard", desc: "Lab-grade vinyl.", imgs: "https://i.postimg.cc/fRcB7MMj/Whats-App-Image-2025-12-31-at-19-52-10.jpg" }
+        {"name":"Kit Spinning Reel For ULTEGRA SPOD XTD","price":20,"category":"Standard","imgs":"https://i.postimg.cc/1XD1BHFN/Whats-App-Image-2026-01-04-at-17-12-34.jpg,https://i.postimg.cc/kGWPscSb/Whats-App-Image-2026-01-04-at-17-12-35.jpg,https://i.postimg.cc/hvVRsrmh/Whats-App-Image-2026-01-04-at-17-12-35-(1).jpg,https://i.postimg.cc/8cLg4HvP/Whats-App-Image-2026-01-04-at-17-12-35-(2).jpg,https://i.postimg.cc/90yHbp90/Whats-App-Image-2026-01-04-at-17-12-35-(3).jpg,https://i.postimg.cc/3N2Q1BGR/Whats-App-Image-2026-01-04-at-17-12-35-(4).jpg,https://i.postimg.cc/1tkZDT8n/Whats-App-Image-2026-01-04-at-17-12-36.jpg","desc":"Additional Features: Easy installation and universal compatibility with MV Spools reels. Superior wear resistance thanks to Teflon, extending the life of your equipment. Protects the shaft from dust, sand, salt, and other corrosive elements. Prevents annoying tangles on the shaft and reel body, ensuring optimal performance. Visually appealing and of innovative design, it complements the aesthetics of your fishing gear."},{"name":"BMW M2 3D Print Wall ART","price":20,"category":"Standard","imgs":"https://i.postimg.cc/tJL6FXb0/Whats-App-Image-2026-01-04-at-18-00-46.jpg","desc":"3D Printed BMW M2 Silhouette – Geometric Car Decor Elevate your space with this custom-designed BMW M2 wall art. This piece celebrates the G87 chassis, highlighting its muscular wheel arches and signature quad-exhaust look through a stylized, artistic lens. Product Specifications: Dimensions: 19.3cm (H) x 15.2cm (W) Thickness: 3mm Material: Durable, lightweight 3D-printed polymer Design: Integrated \"BMW M2\" vertical branding Mounting: Lightweight enough for damage-free hanging (e.g., Command strips or blue tack)."}
     ];
 
     let cart = [];
@@ -218,13 +209,16 @@
         const container = document.getElementById('shop-sections');
         container.innerHTML = '';
         let categoriesToShow = viewMode === 'Standard' ? ['Standard'] : ['3D Printing', 'Apparel'];
+        
         categoriesToShow.forEach(cat => {
             let catProducts = products.filter(p => p.category === cat);
             if(filterTerm) catProducts = catProducts.filter(p => p.name.toLowerCase().includes(filterTerm.toLowerCase()));
+            
             if(catProducts.length > 0) {
                 const section = document.createElement('div');
-                section.innerHTML = `<h2 class="section-title">${cat === 'Standard' ? 'Ready Product' : 'Custom ' + cat}</h2>`;
+                section.innerHTML = `<h2 class="section-title">${cat === 'Standard' ? 'Shop' : 'Custom <span>' + cat + '</span>'}</h2>`;
                 const grid = document.createElement('div'); grid.className = 'grid';
+
                 catProducts.forEach(p => {
                     const realIndex = products.indexOf(p);
                     const imgList = p.imgs.split(',').map(s => s.trim());
@@ -242,13 +236,15 @@
                             </div>
                             <h3>${p.name}</h3>
                             <p>${p.desc}</p>
-                            <div class="price-tag">£${p.price.toFixed(2)}</div>
+                            <div class="price-tag">£${parseFloat(p.price).toFixed(2)}</div>
                             <button class="add-btn" onclick="addToCart(${realIndex})">Add to Manifest</button>
                         </div>`;
                 });
-                section.appendChild(grid); container.appendChild(section);
+                section.appendChild(grid);
+                container.appendChild(section);
             }
         });
+        updateDBDisplay();
     }
 
     function toggleBankDetails() {
@@ -257,54 +253,64 @@
         updateCartDisplay();
     }
 
-    function addToCart(idx) {
-        cart.push(products[idx]);
-        document.getElementById('cart-count').innerText = cart.length;
-        updateCartDisplay();
-    }
-
     function updateCartDisplay() {
         const list = document.getElementById('cart-items-list');
         list.innerHTML = ''; let subtotal = 0;
-        cart.forEach((item) => {
+        cart.forEach((item, idx) => {
             subtotal += item.price;
-            list.innerHTML += `<div class="cart-item"><span>${item.name}</span><b>£${item.price.toFixed(2)}</b></div>`;
+            list.innerHTML += `<div class="cart-item"><span>${item.name}</span><b>£${item.price.toFixed(2)} <i class="fas fa-trash" onclick="removeFromCart(${idx})" style="color:red; cursor:pointer; margin-left:10px;"></i></b></div>`;
         });
         const vat = subtotal * 0.20;
-        const delivery = (document.getElementById('payment-method').value === 'Cash' || cart.length === 0) ? 0 : 5;
-        const total = subtotal + vat + delivery;
+        const delivery = (document.getElementById('payment-method').value === 'Cash' || cart.length === 0) ? 0 : 5.00;
+        
         document.getElementById('sub-val').innerText = subtotal.toFixed(2);
         document.getElementById('vat-val').innerText = vat.toFixed(2);
         document.getElementById('del-val').innerText = delivery.toFixed(2);
-        document.getElementById('grand-val').innerText = total.toFixed(2);
+        document.getElementById('grand-val').innerText = (subtotal + vat + delivery).toFixed(2);
+        document.getElementById('cart-count').innerText = cart.length;
+    }
+
+    function addToCart(idx) {
+        cart.push(products[idx]);
+        updateCartDisplay();
+    }
+
+    function removeFromCart(idx) {
+        cart.splice(idx, 1);
+        updateCartDisplay();
+    }
+
+    function moveSlide(idx, dir) {
+        if (!sliderPositions[idx]) sliderPositions[idx] = 0;
+        const slider = document.getElementById(`slider-${idx}`);
+        const count = slider.children.length;
+        sliderPositions[idx] = (sliderPositions[idx] + dir + count) % count;
+        slider.style.transform = `translateX(-${sliderPositions[idx] * 100}%)`;
     }
 
     function checkout() {
-        if (!cart.length) return alert("Cart empty");
+        if (!cart.length) return alert("Cart is empty");
         const name = document.getElementById('cust-name').value;
         const email = document.getElementById('cust-email').value;
+        const phone = document.getElementById('cust-phone').value;
         const pay = document.getElementById('payment-method').value;
-        const notes = document.getElementById('cust-notes').value || "None";
-        if (!name || !email || !document.getElementById('cust-phone').value) return alert("Please fill Name, Email and Phone");
+        if (!name || !email || !phone) return alert("Please fill all contact details");
 
         const items = cart.map(i => `• ${i.name}`).join('%0A');
         const grand = document.getElementById('grand-val').innerText;
-        
-        const msg = `*NEW LAB ORDER*%0A` +
-                    `--------------------------%0A` +
-                    `*CLIENT:* ${name}%0A` +
-                    `*EMAIL:* ${email}%0A` +
-                    `*PAYMENT:* ${pay}%0A` +
-                    `*NOTES:* ${notes}%0A%0A` +
-                    `*ITEMS:*%0A${items}%0A%0A` +
-                    `*TOTAL:* £${grand}%0A` +
-                    `--------------------------`;
+        const msg = `*NEW ORDER - NIKSTEF LAB*%0AClient: ${name}%0AEmail: ${email}%0APayment: ${pay}%0AItems:%0A${items}%0ATotal: £${grand}`;
         window.open(`https://wa.me/447305378435?text=${msg}`, '_blank');
-        cart = []; document.getElementById('cart-count').innerText = "0"; toggleCart();
+        cart = []; updateCartDisplay(); toggleCart();
     }
 
     function toggleAdmin() { if(prompt("Key:") === "NikS123") { adminMode = !adminMode; document.getElementById('admin-bar').style.display = adminMode ? 'block' : 'none'; renderShop(); } }
-    function resetAdmin() { document.getElementById('edit-id').value = "-1"; document.querySelectorAll('.admin-input').forEach(i => i.value = ""); }
+    
+    function resetAdmin() { 
+        document.getElementById('edit-id').value = "-1"; 
+        document.querySelectorAll('.admin-input').forEach(i => i.value = ""); 
+        document.getElementById('save-btn').innerText = "SAVE";
+    }
+
     function saveProduct() { 
         const id = parseInt(document.getElementById('edit-id').value);
         const name = document.getElementById('p-name').value;
@@ -312,11 +318,15 @@
         const cat = document.getElementById('p-category').value;
         const img = document.getElementById('p-img').value;
         const desc = document.getElementById('p-desc').value;
+        if(!name || isNaN(price)) return alert("Enter valid Name and Price");
+
         if(id === -1) products.push({name, price, category: cat, imgs: img, desc});
         else products[id] = {name, price, category: cat, imgs: img, desc};
+        
         localStorage.setItem('nikstef_v8_db', JSON.stringify(products));
         resetAdmin(); renderShop();
     }
+
     function prepareEdit(idx) {
         const p = products[idx];
         document.getElementById('edit-id').value = idx;
@@ -325,24 +335,21 @@
         document.getElementById('p-category').value = p.category;
         document.getElementById('p-img').value = p.imgs;
         document.getElementById('p-desc').value = p.desc;
+        document.getElementById('save-btn').innerText = "UPDATE";
         window.scrollTo(0,0);
     }
-    function deleteProduct(idx) { products.splice(idx, 1); localStorage.setItem('nikstef_v8_db', JSON.stringify(products)); renderShop(); }
-    function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); updateCartDisplay(); }
+
+    function deleteProduct(idx) { if(confirm("Delete product?")) { products.splice(idx, 1); localStorage.setItem('nikstef_v8_db', JSON.stringify(products)); renderShop(); } }
+    function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+    function updateDBDisplay() { document.getElementById('db-code').innerText = JSON.stringify(products); }
+    function copyDB() { navigator.clipboard.writeText(document.getElementById('db-code').innerText); alert("Code copied!"); }
     function setCategory(cat) { 
         viewMode = cat; 
         document.getElementById('view-title').innerText = cat === 'Standard' ? 'Ready to Buy' : 'Custom Fabrication';
-        document.getElementById('reviews').style.display = cat === 'Standard' ? 'block' : 'none';
         renderShop(); 
     }
     function searchProducts() { renderShop(document.getElementById('searchInput').value); }
-    function moveSlide(idx, dir) {
-        if (!sliderPositions[idx]) sliderPositions[idx] = 0;
-        const slider = document.getElementById(`slider-${idx}`);
-        const count = slider.children.length;
-        sliderPositions[idx] = (sliderPositions[idx] + dir + count) % count;
-        slider.style.transform = `translateX(-${sliderPositions[idx] * 100}%)`;
-    }
+    
     renderShop();
 </script>
 </body>
