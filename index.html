@@ -46,6 +46,7 @@
         .admin-flex { display: flex; gap: 10px; flex-wrap: wrap; max-width: 1200px; margin: auto; }
         .admin-input, .admin-select { padding: 12px; border: 1px solid #ddd; border-radius: 10px; flex: 1; min-width: 150px; font-family: inherit; }
         .deploy-btn { background: #28a745; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        .reset-db-btn { background: #ff3b30; color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; cursor: pointer; }
 
         .export-section { width: 100%; margin-top: 20px; padding: 15px; background: white; border: 1px solid #0066ff; border-radius: 12px; }
         .export-section p { font-size: 0.8rem; font-weight: 700; color: #0066ff; margin-bottom: 10px; }
@@ -126,6 +127,7 @@
         <input type="text" id="p-img" class="admin-input" placeholder="Img links (comma separated)">
         <input type="text" id="p-desc" class="admin-input" placeholder="Desc">
         <button class="deploy-btn" id="save-btn" onclick="saveProduct()">SAVE</button>
+        <button class="reset-db-btn" onclick="hardResetDB()">HARD RESET DB</button>
         <button onclick="resetAdmin()" style="border:none; background:#666; color:white; padding:10px; border-radius:10px; cursor:pointer">X</button>
     </div>
 
@@ -345,6 +347,14 @@
         
         localStorage.setItem('nikstef_v8_db', JSON.stringify(products));
         resetAdmin(); renderShop();
+    }
+
+    // NEW: Hard reset function to sync with the code data
+    function hardResetDB() {
+        if(confirm("Warning: This will delete any items you added via the Admin panel and reset to the default list. Proceed?")) {
+            localStorage.removeItem('nikstef_v8_db');
+            location.reload();
+        }
     }
 
     function prepareEdit(idx) {
