@@ -180,7 +180,7 @@
             </select>
         </div>
         <div id="bank-box" class="bank-details-box">
-            <p><strong>Bank:</strong> MONZO | <strong>Acc:</strong> 11254040 | <strong>Sort:</strong> 04-00-04</p>
+            <p><strong>Bank:</strong> Emanuel-Stefan Szoke / Monzo | <strong>Acc:</strong> 11254040 | <strong>Sort:</strong> 04-00-04</p>
         </div>
         <div class="form-group"><label>Name</label><input type="text" id="cust-name"></div>
         <div class="form-group"><label>Email</label><input type="email" id="cust-email"></div>
@@ -197,7 +197,27 @@
 <script>
     // --- MASTER DATABASE ---
     let products = JSON.parse(localStorage.getItem('nikstef_v8_db')) || [
-        {"name":"Kit Spinning Reel For ULTEGRA SPOD XTD","price":20,"category":"Standard","imgs":"https://i.postimg.cc/1XD1BHFN/Whats-App-Image-2026-01-04-at-17-12-34.jpg,https://i.postimg.cc/kGWPscSb/Whats-App-Image-2026-01-04-at-17-12-35.jpg,https://i.postimg.cc/hvVRsrmh/Whats-App-Image-2026-01-04-at-17-12-35-(1).jpg,https://i.postimg.cc/8cLg4HvP/Whats-App-Image-2026-01-04-at-17-12-35-(2).jpg,https://i.postimg.cc/90yHbp90/Whats-App-Image-2026-01-04-at-17-12-35-(3).jpg,https://i.postimg.cc/3N2Q1BGR/Whats-App-Image-2026-01-04-at-17-12-35-(4).jpg,https://i.postimg.cc/1tkZDT8n/Whats-App-Image-2026-01-04-at-17-12-36.jpg","desc":"Additional Features: Easy installation and universal compatibility with MV Spools reels. Superior wear resistance thanks to Teflon, extending the life of your equipment. Protects the shaft from dust, sand, salt, and other corrosive elements. Prevents annoying tangles on the shaft and reel body, ensuring optimal performance. Visually appealing and of innovative design, it complements the aesthetics of your fishing gear."},{"name":"BMW M2 3D Print Wall ART","price":20,"category":"Standard","imgs":"https://i.postimg.cc/tJL6FXb0/Whats-App-Image-2026-01-04-at-18-00-46.jpg","desc":"3D Printed BMW M2 Silhouette – Geometric Car Decor Elevate your space with this custom-designed BMW M2 wall art. This piece celebrates the G87 chassis, highlighting its muscular wheel arches and signature quad-exhaust look through a stylized, artistic lens. Product Specifications: Dimensions: 19.3cm (H) x 15.2cm (W) Thickness: 3mm Material: Durable, lightweight 3D-printed polymer Design: Integrated \"BMW M2\" vertical branding Mounting: Lightweight enough for damage-free hanging (e.g., Command strips or blue tack)."}
+        {
+            "name": "Kit Spinning Reel For ULTEGRA SPOD XTD",
+            "price": 20,
+            "category": "Standard",
+            "imgs": "https://i.postimg.cc/1XD1BHFN/Whats-App-Image-2026-01-04-at-17-12-34.jpg,https://i.postimg.cc/kGWPscSb/Whats-App-Image-2026-01-04-at-17-12-35.jpg,https://i.postimg.cc/hvVRsrmh/Whats-App-Image-2026-01-04-at-17-12-35-(1).jpg,https://i.postimg.cc/8cLg4HvP/Whats-App-Image-2026-01-04-at-17-12-35-(2).jpg,https://i.postimg.cc/90yHbp90/Whats-App-Image-2026-01-04-at-17-12-35-(3).jpg,https://i.postimg.cc/3N2Q1BGR/Whats-App-Image-2026-01-04-at-17-12-35-(4).jpg,https://i.postimg.cc/1tkZDT8n/Whats-App-Image-2026-01-04-at-17-12-36.jpg",
+            "desc": "Additional Features: Easy installation and universal compatibility with MV Spools reels. Superior wear resistance thanks to Teflon, extending the life of your equipment. Protects the shaft from dust, sand, salt, and other corrosive elements. Prevents annoying tangles on the shaft and reel body, ensuring optimal performance. Visually appealing and of innovative design, it complements the aesthetics of your fishing gear."
+        },
+        {
+            "name": "BMW M2 3D Print Wall ART",
+            "price": 20,
+            "category": "Standard",
+            "imgs": "https://i.postimg.cc/tJL6FXb0/Whats-App-Image-2026-01-04-at-18-00-46.jpg",
+            "desc": "3D Printed BMW M2 Silhouette – Geometric Car Decor Elevate your space with this custom-designed BMW M2 wall art. This piece celebrates the G87 chassis, highlighting its muscular wheel arches and signature quad-exhaust look through a stylized, artistic lens. Product Specifications: Dimensions: 19.3cm (H) x 15.2cm (W) Thickness: 3mm Material: Durable, lightweight 3D-printed polymer Design: Integrated \"BMW M2\" vertical branding Mounting: Lightweight enough for damage-free hanging (e.g., Command strips or blue tack)."
+        },
+        {
+            "name": "BMW M3 ART",
+            "price": 5,
+            "category": "Standard",
+            "imgs": "https://i.postimg.cc/sgwgdfRK/Whats-App-Image-2026-01-05-at-16-35-36.jpg",
+            "desc": "Product Highlights: Precision Detailing: Features a clean, two-tone finish that highlights the vehicle’s aerodynamic lines and signature \"BMW M3\" branding. Unique Display: Designed to interact with light; when backlit, the varying thicknesses of the print reveal a photographic depth that standard prints cannot achieve. Durable Material: Printed in a lightweight, high-quality material that is perfect for desk displays, lightboxes, or as a custom automotive collectible. Compact Dimensions: At exactly 7.5cm x 15.4cm x 2mm, it is sized perfectly for standard display stands or framed wall art."
+        }
     ];
 
     let cart = [];
